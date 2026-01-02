@@ -1,0 +1,31 @@
+aid: envoy-proxy
+name: Envoy Proxy
+description: >-
+  ENVOY IS AN OPEN SOURCE EDGE AND SERVICE PROXY, DESIGNED FOR CLOUD-NATIVE
+  APPLICATIONS 
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - API
+created: '2026-01-02'
+modified: '2026-01-02'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/envoy-proxy/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: envoy-proxy:envoy-proxy
+    name: Envoy Proxy
+    description: >-
+      ENVOY IS AN OPEN SOURCE EDGE AND SERVICE PROXY, DESIGNED FOR CLOUD-NATIVE
+      APPLICATIONS 
+    humanURL: ' https://www.envoyproxy.io/'
+    tags:
+      - API
+    properties:
+      - type: Documentation
+        url: ' https://www.envoyproxy.io/'
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
