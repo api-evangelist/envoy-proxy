@@ -1,0 +1,712 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin API
+  description: >-
+    The Envoy Proxy Administration Interface provides a local HTTP-based
+    management API for querying and modifying various aspects of the Envoy
+    server at runtime. It serves as a critical operational tool for monitoring,
+    debugging, and managing Envoy proxy instances. The admin interface typically
+    runs on port 9901 by default. All mutation operations must be sent as HTTP
+    POST requests; GET requests will not perform changes. Note that this
+    endpoint is not authenticated, so access should be restricted in production
+    environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: http://localhost:9901
+    description: Default Envoy Admin Interface
+paths:
+  /:
+    get:
+      operationId: getAdminHome
+      summary: Admin Home
+      description: >-
+        Returns the admin interface home page with links to all available
+        endpoints.
+      responses:
+        '200':
+          description: Successful response with admin home page.
+          content:
+            text/html:
+              schema:
+                type: string
+      tags:
+        - General
+  /help:
+    get:
+      operationId: getHelp
+      summary: List Available Endpoints
+      description: >-
+        Returns a list of all available admin endpoints and their
+        descriptions.
+      responses:
+        '200':
+          description: Successful response with list of endpoints.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - General
+  /ready:
+    get:
+      operationId: getReady
+      summary: Check Server Readiness
+      description: >-
+        Returns a 200 OK response if the server has been initialized and is
+        ready to accept traffic. Returns 503 if the server is not yet
+        initialized.
+      responses:
+        '200':
+          description: Server is ready and initialized.
+          content:
+            text/plain:
+              schema:
+                type: string
+        '503':
+          description: Server is not yet initialized.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Health
+  /server_info:
+    get:
+      operationId: getServerInfo
+      summary: Get Server Information
+      description: >-
+        Returns information about the running Envoy server including version,
+        uptime, command line options, and hot restart version.
+      responses:
+        '200':
+          description: Successful response with server information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: Envoy version string.
+                  state:
+                    type: string
+                    description: Current server state.
+                  uptime_current_epoch:
+                    type: string
+                    description: Uptime of the current epoch.
+                  uptime_all_epochs:
+                    type: string
+                    description: Uptime across all epochs.
+                  hot_restart_version:
+                    type: string
+                    description: Hot restart compatibility version.
+                  command_line_options:
+                    type: object
+                    description: Command line options used to start Envoy.
+      tags:
+        - Server
+  /stats:
+    get:
+      operationId: getStats
+      summary: Get Statistics
+      description: >-
+        Returns statistics that Envoy has collected, including counters, gauges,
+        and histograms. Stats are provided as key-value pairs using a
+        hierarchical dotted notation.
+      parameters:
+        - name: format
+          in: query
+          description: Output format for the statistics.
+          schema:
+            type: string
+            enum:
+              - json
+              - prometheus
+              - text
+        - name: filter
+          in: query
+          description: >-
+            Regular expression to filter the returned statistics by name.
+          schema:
+            type: string
+        - name: usedonly
+          in: query
+          description: Only return statistics that have been written to by Envoy.
+          schema:
+            type: boolean
+        - name: histogram_buckets
+          in: query
+          description: Control histogram output mode.
+          schema:
+            type: string
+            enum:
+              - cumulative
+              - disjoint
+              - none
+      responses:
+        '200':
+          description: Successful response with statistics.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Statistics
+  /stats/prometheus:
+    get:
+      operationId: getStatsPrometheus
+      summary: Get Statistics in Prometheus Format
+      description: >-
+        Returns statistics in Prometheus exposition format suitable for
+        scraping by a Prometheus server.
+      parameters:
+        - name: usedonly
+          in: query
+          description: Only return statistics that have been written to by Envoy.
+          schema:
+            type: boolean
+        - name: text_readouts
+          in: query
+          description: Include text readout gauges in the output.
+          schema:
+            type: boolean
+        - name: filter
+          in: query
+          description: >-
+            Regular expression to filter the returned statistics by name.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with Prometheus-formatted statistics.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Statistics
+  /stats/recentlookups:
+    get:
+      operationId: getStatsRecentLookups
+      summary: Get Recent Stat Lookups
+      description: Returns a table of recently looked-up stat names.
+      responses:
+        '200':
+          description: Successful response with recent stat lookups.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Statistics
+  /clusters:
+    get:
+      operationId: getClusters
+      summary: Get Cluster Information
+      description: >-
+        Lists all configured cluster manager clusters including all discovered
+        upstream hosts in each cluster along with per-host statistics. Provides
+        information about the health status and connection metrics of upstream
+        hosts.
+      parameters:
+        - name: format
+          in: query
+          description: Output format for cluster information.
+          schema:
+            type: string
+            enum:
+              - json
+      responses:
+        '200':
+          description: Successful response with cluster information.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Clusters
+  /config_dump:
+    get:
+      operationId: getConfigDump
+      summary: Dump Current Configuration
+      description: >-
+        Returns the currently loaded configuration in JSON format, including
+        bootstrap, clusters, endpoints, listeners, scoped routes, routes,
+        secrets, and ECDS filter configurations.
+      parameters:
+        - name: resource
+          in: query
+          description: >-
+            Filter the configuration dump to only return the specified
+            resource type.
+          schema:
+            type: string
+        - name: mask
+          in: query
+          description: >-
+            Field mask to apply to the configuration dump, limiting which
+            fields are returned.
+          schema:
+            type: string
+        - name: name_regex
+          in: query
+          description: >-
+            Regular expression to filter the returned configuration by
+            resource name.
+          schema:
+            type: string
+        - name: include_eds
+          in: query
+          description: Include EDS configuration in the dump.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response with configuration dump.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  configs:
+                    type: array
+                    items:
+                      type: object
+      tags:
+        - Configuration
+  /init_dump:
+    get:
+      operationId: getInitDump
+      summary: Dump Initialization Configuration
+      description: >-
+        Returns the unmodified configuration as it was loaded during the
+        initialization process.
+      parameters:
+        - name: mask
+          in: query
+          description: Field mask to apply to the initialization dump.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with initialization configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Configuration
+  /listeners:
+    get:
+      operationId: getListeners
+      summary: List Listeners
+      description: >-
+        Lists all configured listeners, including their names and the
+        addresses they are listening on.
+      parameters:
+        - name: format
+          in: query
+          description: Output format for listener information.
+          schema:
+            type: string
+            enum:
+              - json
+      responses:
+        '200':
+          description: Successful response with listener information.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Listeners
+  /certs:
+    get:
+      operationId: getCerts
+      summary: List TLS Certificates
+      description: >-
+        Lists all loaded TLS certificates including file name, serial number,
+        subject alternate names, and days until expiration in JSON format.
+      responses:
+        '200':
+          description: Successful response with certificate information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ca_cert:
+                          type: array
+                          items:
+                            type: object
+                        cert_chain:
+                          type: array
+                          items:
+                            type: object
+      tags:
+        - Certificates
+  /runtime:
+    get:
+      operationId: getRuntime
+      summary: Get Runtime Settings
+      description: >-
+        Returns the current runtime settings, including any overrides that
+        have been applied via the admin interface or runtime layer
+        configuration.
+      responses:
+        '200':
+          description: Successful response with runtime settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  layers:
+                    type: array
+                    items:
+                      type: object
+                  entries:
+                    type: object
+      tags:
+        - Runtime
+  /runtime_modify:
+    post:
+      operationId: postRuntimeModify
+      summary: Modify Runtime Settings
+      description: >-
+        Adds or modifies runtime values as passed in query parameters. To
+        delete a previously added override, use an empty value for the
+        parameter.
+      parameters:
+        - name: key
+          in: query
+          description: >-
+            Key-value pairs to set as runtime overrides. Multiple parameters
+            can be passed.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Runtime values modified successfully.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Runtime
+  /logging:
+    post:
+      operationId: postLogging
+      summary: View or Modify Log Levels
+      description: >-
+        Enable or change logging levels at runtime. Without query parameters,
+        returns the current logging levels. With a query parameter, sets the
+        logging level for a specific logger or all loggers.
+      parameters:
+        - name: level
+          in: query
+          description: >-
+            Set the log level for all loggers. Valid values include trace,
+            debug, info, warning/warn, error, critical, and off.
+          schema:
+            type: string
+            enum:
+              - trace
+              - debug
+              - info
+              - warning
+              - error
+              - critical
+              - "off"
+        - name: paths
+          in: query
+          description: Set a glob pattern for file path to filter the log output.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with logging configuration.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Logging
+  /memory:
+    get:
+      operationId: getMemory
+      summary: Get Memory Usage
+      description: >-
+        Returns current memory allocation and heap usage in bytes, providing
+        insights into memory consumption of the Envoy process.
+      responses:
+        '200':
+          description: Successful response with memory information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allocated:
+                    type: string
+                    description: Currently allocated memory in bytes.
+                  heap_size:
+                    type: string
+                    description: Current heap size in bytes.
+                  pageheap_unmapped:
+                    type: string
+                    description: Unmapped page heap bytes.
+                  pageheap_free:
+                    type: string
+                    description: Free page heap bytes.
+                  total_thread_cache:
+                    type: string
+                    description: Total thread cache bytes.
+      tags:
+        - Server
+  /hot_restart_version:
+    get:
+      operationId: getHotRestartVersion
+      summary: Get Hot Restart Version
+      description: >-
+        Returns the hot restart compatibility version. This can be matched
+        against the output of the --hot-restart-version command line option
+        to determine whether a new binary and the running binary are hot
+        restart compatible.
+      responses:
+        '200':
+          description: Successful response with hot restart version.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Server
+  /reset_counters:
+    post:
+      operationId: postResetCounters
+      summary: Reset Counters
+      description: >-
+        Resets all counters to zero. This is useful when used in conjunction
+        with GET /stats during debugging sessions.
+      responses:
+        '200':
+          description: Counters reset successfully.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Statistics
+  /drain_listeners:
+    post:
+      operationId: postDrainListeners
+      summary: Drain Listeners
+      description: >-
+        Drains all listeners, causing them to stop accepting new connections.
+        Existing connections are allowed to complete.
+      parameters:
+        - name: graceful
+          in: query
+          description: >-
+            When set, listeners are drained gracefully with a period where
+            both old and new listeners accept connections.
+          schema:
+            type: boolean
+        - name: inboundonly
+          in: query
+          description: >-
+            Drain only inbound listeners and leave outbound listeners intact.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Listeners draining initiated.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Listeners
+  /healthcheck/fail:
+    post:
+      operationId: postHealthcheckFail
+      summary: Fail Health Checks
+      description: >-
+        Causes the server to fail inbound health checks. This requires the
+        use of the HTTP health check filter. Useful for draining a server
+        prior to shutting it down or performing a full restart.
+      responses:
+        '200':
+          description: Health check failure enabled.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Health
+  /healthcheck/ok:
+    post:
+      operationId: postHealthcheckOk
+      summary: Resume Health Checks
+      description: >-
+        Negates the effect of POST /healthcheck/fail, causing the server to
+        resume passing inbound health checks.
+      responses:
+        '200':
+          description: Health check restored to passing.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Health
+  /quitquitquit:
+    post:
+      operationId: postQuitQuitQuit
+      summary: Shutdown Server
+      description: Cleanly exits the Envoy server process.
+      responses:
+        '200':
+          description: Server shutdown initiated.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Server
+  /cpuprofiler:
+    post:
+      operationId: postCpuProfiler
+      summary: Enable or Disable CPU Profiler
+      description: >-
+        Enables or disables the CPU profiler. Requires compilation with
+        gperftools. The output file can be then analyzed with pprof.
+      parameters:
+        - name: enable
+          in: query
+          description: Enable (y) or disable (n) the CPU profiler.
+          schema:
+            type: string
+            enum:
+              - "y"
+              - "n"
+      responses:
+        '200':
+          description: CPU profiler state changed.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Profiling
+  /heapprofiler:
+    post:
+      operationId: postHeapProfiler
+      summary: Enable or Disable Heap Profiler
+      description: >-
+        Enables or disables the heap profiler. Requires compilation with
+        gperftools.
+      parameters:
+        - name: enable
+          in: query
+          description: Enable (y) or disable (n) the heap profiler.
+          schema:
+            type: string
+            enum:
+              - "y"
+              - "n"
+      responses:
+        '200':
+          description: Heap profiler state changed.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+        - Profiling
+  /tap:
+    post:
+      operationId: postTap
+      summary: Tap Traffic
+      description: >-
+        Installs a traffic tap configuration that allows inspecting traffic
+        matching specific filter rules. The tap configuration is supplied in
+        the request body.
+      requestBody:
+        description: Tap configuration in JSON or YAML format.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Tap configuration installed and streaming tap results.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Debugging
+  /contention:
+    get:
+      operationId: getContention
+      summary: Get Mutex Contention Stats
+      description: >-
+        Dumps current Envoy mutex contention stats in JSON format, if mutex
+        tracing is enabled.
+      responses:
+        '200':
+          description: Successful response with contention statistics.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Debugging
+tags:
+  - name: General
+    description: General admin interface endpoints.
+  - name: Health
+    description: Health check management endpoints.
+  - name: Server
+    description: Server information and lifecycle endpoints.
+  - name: Statistics
+    description: Statistics and metrics endpoints.
+  - name: Clusters
+    description: Cluster management and information endpoints.
+  - name: Configuration
+    description: Configuration inspection and dump endpoints.
+  - name: Listeners
+    description: Listener management endpoints.
+  - name: Certificates
+    description: TLS certificate information endpoints.
+  - name: Runtime
+    description: Runtime configuration management endpoints.
+  - name: Logging
+    description: Logging level management endpoints.
+  - name: Profiling
+    description: CPU and heap profiling endpoints.
+  - name: Debugging
+    description: Debugging and traffic inspection endpoints.

@@ -2,18 +2,25 @@ aid: envoy-proxy
 url: >-
   https://raw.githubusercontent.com/api-evangelist/envoy-proxy/refs/heads/main/apis.yml
 apis:
-  - aid: envoy-proxy:envoy-proxy
-    name: Envoy Proxy
+  - aid: envoy-proxy:admin-api
+    name: Envoy Proxy Admin API
     tags:
       - Proxies
       - Gateways
-    humanURL: ' https://www.envoyproxy.io/'
+      - Service Mesh
+    humanURL: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
     properties:
-      - url: ' https://www.envoyproxy.io/'
+      - url: openapi/envoy-proxy-admin-api-openapi.yml
+        type: OpenAPI
+      - url: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
         type: Documentation
     description: >-
-      ENVOY IS AN OPEN SOURCE EDGE AND SERVICE PROXY, DESIGNED FOR CLOUD-NATIVE
-      APPLICATIONS 
+      The Envoy Proxy Administration Interface provides a local HTTP-based
+      management API for querying and modifying various aspects of the Envoy
+      server at runtime. It serves as a critical operational tool for
+      monitoring, debugging, and managing Envoy proxy instances including
+      statistics, clusters, listeners, certificates, runtime settings, logging,
+      and health checks.
 name: Envoy Proxy
 tags:
   - Proxies
@@ -22,7 +29,7 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2026-01-02'
-modified: '2026-01-02'
+modified: '2026-03-14'
 position: Consumer
 description: >-
   Envoy Proxy is an open-source edge and service proxy that is designed for
