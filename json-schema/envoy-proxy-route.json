@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "envoy-proxy-route.json",
+  "title": "Envoy Proxy Route Configuration",
+  "description": "An Envoy Proxy Route Configuration defines how incoming HTTP requests are matched and routed to upstream clusters. Route configurations contain virtual hosts that group routing rules by domain name, with each virtual host containing an ordered set of routes that match on request attributes such as path, headers, and query parameters. Routes specify the target cluster, traffic management policies including retries, timeouts, and rate limits.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the route configuration, referenced by listeners and used in statistics."
+    },
+    "virtual_hosts": {
+      "type": "array",
+      "description": "An ordered list of virtual hosts that make up the route table. Virtual hosts are matched by the Host header or authority.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The logical name of the virtual host, used in statistics."
+          },
+          "domains": {
+            "type": "array",
+            "description": "A list of domains (host/authority headers) that will be matched to this virtual host. Wildcard domains such as *.example.com are supported.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "routes": {
+            "type": "array",
+            "description": "The ordered list of routes that will be matched against incoming requests. The first matching route is used.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Optional name for the route, used in statistics."
+                },
+                "match": {
+                  "type": "object",
+                  "description": "Route matching criteria.",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "description": "Match requests whose path begins with this prefix."
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "Match requests whose path is exactly this value."
+                    },
+                    "safe_regex": {
+                      "type": "object",
+                      "description": "Match requests whose path matches this regex.",
+                      "properties": {
+                        "regex": {
+                          "type": "string",
+                          "description": "The regular expression pattern."
+                        }
+                      }
+                    },
+                    "headers": {
+                      "type": "array",
+                      "description": "Specifies additional headers the request must match.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "The header name to match."
+                          },
+                          "exact_match": {
+                            "type": "string",
+                            "description": "Exact header value to match."
+                          },
+                          "prefix_match": {
+                            "type": "string",
+                            "description": "Header value prefix to match."
+                          },
+                          "suffix_match": {
+                            "type": "string",
+                            "description": "Header value suffix to match."
+                          },
+                          "present_match": {
+                            "type": "boolean",
+                            "description": "If true, match if the header is present regardless of value."
+                          }
+                        },
+                        "required": ["name"]
+                      }
+                    },
+                    "query_parameters": {
+                      "type": "array",
+                      "description": "Specifies query parameters the request must match.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "The query parameter name."
+                          },
+                          "string_match": {
+                            "type": "object",
+                            "description": "String match criteria for the parameter value.",
+                            "properties": {
+                              "exact": {
+                                "type": "string"
+                              },
+                              "prefix": {
+                                "type": "string"
+                              },
+                              "suffix": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": ["name"]
+                      }
+                    }
+                  }
+                },
+                "route": {
+                  "type": "object",
+                  "description": "Route action specifying the upstream cluster to forward to.",
+                  "properties": {
+                    "cluster": {
+                      "type": "string",
+                      "description": "The upstream cluster to route the request to."
+                    },
+                    "weighted_clusters": {
+                      "type": "object",
+                      "description": "Multiple upstream clusters with weights for traffic splitting.",
+                      "properties": {
+                        "clusters": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "description": "The cluster name."
+                              },
+                              "weight": {
+                                "type": "integer",
+                                "description": "The weight of this cluster.",
+                                "minimum": 0
+                              }
+                            },
+                            "required": ["name", "weight"]
+                          }
+                        },
+                        "total_weight": {
+                          "type": "integer",
+                          "description": "Total weight across all clusters."
+                        }
+                      }
+                    },
+                    "timeout": {
+                      "type": "string",
+                      "description": "Timeout for the route, specified as a duration such as 15s."
+                    },
+                    "retry_policy": {
+                      "type": "object",
+                      "description": "Retry policy for this route.",
+                      "properties": {
+                        "retry_on": {
+                          "type": "string",
+                          "description": "Conditions under which retry should be attempted, such as 5xx, gateway-error, or connect-failure."
+                        },
+                        "num_retries": {
+                          "type": "integer",
+                          "description": "Maximum number of retries.",
+                          "minimum": 0
+                        },
+                        "per_try_timeout": {
+                          "type": "string",
+                          "description": "Timeout for each retry attempt."
+                        }
+                      }
+                    },
+                    "prefix_rewrite": {
+                      "type": "string",
+                      "description": "Rewrite the matched prefix to this value before forwarding upstream."
+                    },
+                    "host_rewrite_literal": {
+                      "type": "string",
+                      "description": "Rewrite the Host header to this value before forwarding upstream."
+                    }
+                  }
+                },
+                "redirect": {
+                  "type": "object",
+                  "description": "Redirect action instead of routing to a cluster.",
+                  "properties": {
+                    "https_redirect": {
+                      "type": "boolean",
+                      "description": "Redirect to HTTPS."
+                    },
+                    "host_redirect": {
+                      "type": "string",
+                      "description": "The host to redirect to."
+                    },
+                    "path_redirect": {
+                      "type": "string",
+                      "description": "The path to redirect to."
+                    },
+                    "response_code": {
+                      "type": "integer",
+                      "description": "The HTTP response code to use for the redirect.",
+                      "enum": [301, 302, 303, 307, 308]
+                    }
+                  }
+                },
+                "direct_response": {
+                  "type": "object",
+                  "description": "Return a direct response without proxying.",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "description": "The HTTP status code to return."
+                    },
+                    "body": {
+                      "type": "object",
+                      "description": "The response body.",
+                      "properties": {
+                        "inline_string": {
+                          "type": "string",
+                          "description": "An inline string body."
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["match"]
+            }
+          },
+          "rate_limits": {
+            "type": "array",
+            "description": "Rate limit configurations for this virtual host.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "actions": {
+                  "type": "array",
+                  "description": "A list of rate limit actions.",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "cors": {
+            "type": "object",
+            "description": "CORS policy for this virtual host.",
+            "properties": {
+              "allow_origin_string_match": {
+                "type": "array",
+                "description": "Allowed origin patterns.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "exact": {
+                      "type": "string"
+                    },
+                    "prefix": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "allow_methods": {
+                "type": "string",
+                "description": "Allowed HTTP methods."
+              },
+              "allow_headers": {
+                "type": "string",
+                "description": "Allowed request headers."
+              },
+              "max_age": {
+                "type": "string",
+                "description": "How long the results of a preflight request can be cached."
+              }
+            }
+          },
+          "request_headers_to_add": {
+            "type": "array",
+            "description": "Headers to add to requests before forwarding upstream.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "header": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "append_action": {
+                  "type": "string",
+                  "enum": [
+                    "APPEND_IF_EXISTS_OR_ADD",
+                    "ADD_IF_ABSENT",
+                    "OVERWRITE_IF_EXISTS_OR_ADD",
+                    "OVERWRITE_IF_EXISTS"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": ["name", "domains"]
+      }
+    },
+    "response_headers_to_add": {
+      "type": "array",
+      "description": "Headers to add to responses before sending downstream.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "header": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "append_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validate_clusters": {
+      "type": "boolean",
+      "description": "Whether to validate that referenced clusters exist. Defaults to true when using static route configuration."
+    }
+  },
+  "required": ["name", "virtual_hosts"]
+}

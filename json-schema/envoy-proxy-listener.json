@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "envoy-proxy-listener.json",
+  "title": "Envoy Proxy Listener",
+  "description": "An Envoy Proxy Listener defines a network address and port where Envoy accepts downstream connections. Each listener specifies one or more filter chains that process incoming traffic, allowing Envoy to route, transform, and manage connections. Listeners support both TCP and UDP protocols and can be configured with TLS termination, connection limits, and traffic mirroring.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The unique name for this listener, used in statistics and logging."
+    },
+    "address": {
+      "type": "object",
+      "description": "The address and port that the listener should bind to.",
+      "properties": {
+        "socket_address": {
+          "type": "object",
+          "description": "A TCP or UDP socket address.",
+          "properties": {
+            "address": {
+              "type": "string",
+              "description": "The IP address or hostname to bind to. Use 0.0.0.0 for all interfaces."
+            },
+            "port_value": {
+              "type": "integer",
+              "description": "The port number to bind to.",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "protocol": {
+              "type": "string",
+              "description": "The protocol to use for the socket.",
+              "enum": ["TCP", "UDP"]
+            }
+          },
+          "required": ["address", "port_value"]
+        }
+      }
+    },
+    "filter_chains": {
+      "type": "array",
+      "description": "A list of filter chains to process connections received by this listener. Each filter chain contains a series of network filters.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filter_chain_match": {
+            "type": "object",
+            "description": "Criteria for matching a connection to this filter chain.",
+            "properties": {
+              "destination_port": {
+                "type": "integer",
+                "description": "The destination port to match."
+              },
+              "server_names": {
+                "type": "array",
+                "description": "SNI server names to match for TLS connections.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "transport_protocol": {
+                "type": "string",
+                "description": "The transport protocol to match, such as tls or raw_buffer."
+              },
+              "application_protocols": {
+                "type": "array",
+                "description": "ALPN protocols to match.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "filters": {
+            "type": "array",
+            "description": "The ordered list of network filters that make up this filter chain.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the filter, such as envoy.filters.network.http_connection_manager."
+                },
+                "typed_config": {
+                  "type": "object",
+                  "description": "The typed configuration for this filter.",
+                  "additionalProperties": true
+                }
+              },
+              "required": ["name"]
+            }
+          },
+          "transport_socket": {
+            "type": "object",
+            "description": "Optional transport socket configuration, typically for TLS.",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The transport socket name, typically envoy.transport_sockets.tls."
+              },
+              "typed_config": {
+                "type": "object",
+                "description": "The typed TLS configuration.",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "listener_filters": {
+      "type": "array",
+      "description": "Listener filters that are applied before the filter chain is selected.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the listener filter."
+          },
+          "typed_config": {
+            "type": "object",
+            "description": "The typed configuration for this listener filter.",
+            "additionalProperties": true
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    "per_connection_buffer_limit_bytes": {
+      "type": "integer",
+      "description": "Soft limit on size of the listener's new connection read and write buffers in bytes."
+    },
+    "traffic_direction": {
+      "type": "string",
+      "description": "Specifies the intended direction of the traffic relative to the local Envoy.",
+      "enum": ["UNSPECIFIED", "INBOUND", "OUTBOUND"]
+    },
+    "enable_reuse_port": {
+      "type": "boolean",
+      "description": "Whether the listener should use SO_REUSEPORT for binding."
+    },
+    "access_log": {
+      "type": "array",
+      "description": "Configuration for access logging on this listener.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the access log implementation."
+          },
+          "typed_config": {
+            "type": "object",
+            "description": "The typed configuration for the access log.",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  },
+  "required": ["name", "address"]
+}

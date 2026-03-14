@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "envoy-proxy-endpoint.json",
+  "title": "Envoy Proxy Endpoint",
+  "description": "An Envoy Proxy Endpoint represents a single upstream host within a cluster that can receive proxied traffic. Endpoints are grouped into localities for zone-aware routing and are assigned load balancing weights, health status, and priority levels. The Endpoint Discovery Service (EDS) dynamically provides endpoint assignments to Envoy, enabling real-time updates as upstream hosts are added, removed, or change health state.",
+  "type": "object",
+  "properties": {
+    "cluster_name": {
+      "type": "string",
+      "description": "The name of the cluster that these endpoints belong to."
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "A list of endpoint groups organized by locality.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "locality": {
+            "type": "object",
+            "description": "The locality associated with this set of endpoints, used for zone-aware routing.",
+            "properties": {
+              "region": {
+                "type": "string",
+                "description": "The geographic region, such as us-east-1."
+              },
+              "zone": {
+                "type": "string",
+                "description": "The availability zone within the region, such as us-east-1a."
+              },
+              "sub_zone": {
+                "type": "string",
+                "description": "A further subdivision within the zone."
+              }
+            }
+          },
+          "lb_endpoints": {
+            "type": "array",
+            "description": "The list of individual endpoints in this locality.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "endpoint": {
+                  "type": "object",
+                  "description": "The upstream endpoint address.",
+                  "properties": {
+                    "address": {
+                      "type": "object",
+                      "description": "The network address of the endpoint.",
+                      "properties": {
+                        "socket_address": {
+                          "type": "object",
+                          "description": "A TCP socket address.",
+                          "properties": {
+                            "address": {
+                              "type": "string",
+                              "description": "The IP address or hostname of the upstream host."
+                            },
+                            "port_value": {
+                              "type": "integer",
+                              "description": "The port number of the upstream host.",
+                              "minimum": 0,
+                              "maximum": 65535
+                            },
+                            "protocol": {
+                              "type": "string",
+                              "description": "The protocol for this socket address.",
+                              "enum": ["TCP", "UDP"]
+                            }
+                          },
+                          "required": ["address", "port_value"]
+                        },
+                        "pipe": {
+                          "type": "object",
+                          "description": "A Unix domain socket address.",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "description": "The Unix domain socket path."
+                            },
+                            "mode": {
+                              "type": "integer",
+                              "description": "The mode for the Unix domain socket."
+                            }
+                          },
+                          "required": ["path"]
+                        }
+                      }
+                    },
+                    "health_check_config": {
+                      "type": "object",
+                      "description": "Optional health check configuration overrides for this endpoint.",
+                      "properties": {
+                        "port_value": {
+                          "type": "integer",
+                          "description": "An alternate port to use for health checking this endpoint.",
+                          "minimum": 0,
+                          "maximum": 65535
+                        },
+                        "hostname": {
+                          "type": "string",
+                          "description": "An alternate hostname to use for health checking."
+                        }
+                      }
+                    },
+                    "hostname": {
+                      "type": "string",
+                      "description": "The hostname of the endpoint, used for SNI matching and auto-host-rewrite."
+                    }
+                  }
+                },
+                "health_status": {
+                  "type": "string",
+                  "description": "The health status of the endpoint as determined by the management server or health checker.",
+                  "enum": [
+                    "UNKNOWN",
+                    "HEALTHY",
+                    "UNHEALTHY",
+                    "DRAINING",
+                    "TIMEOUT",
+                    "DEGRADED"
+                  ]
+                },
+                "metadata": {
+                  "type": "object",
+                  "description": "Opaque metadata associated with the endpoint for use in load balancing and routing.",
+                  "properties": {
+                    "filter_metadata": {
+                      "type": "object",
+                      "description": "Metadata keyed by filter name.",
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "load_balancing_weight": {
+                  "type": "integer",
+                  "description": "The load balancing weight of this endpoint. Endpoints with higher weights receive proportionally more traffic.",
+                  "minimum": 1,
+                  "maximum": 128
+                }
+              }
+            }
+          },
+          "load_balancing_weight": {
+            "type": "integer",
+            "description": "The load balancing weight for this entire locality. Used for inter-locality traffic distribution.",
+            "minimum": 0
+          },
+          "priority": {
+            "type": "integer",
+            "description": "The priority of this locality. Envoy will route to higher priority localities first, falling back to lower priority when higher priority localities become unavailable.",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "named_endpoints": {
+      "type": "object",
+      "description": "A map of named endpoints that can be referenced by name in lb_endpoints.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "object",
+            "properties": {
+              "socket_address": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string"
+                  },
+                  "port_value": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "description": "Load balancing policy settings for the endpoint group.",
+      "properties": {
+        "overprovisioning_factor": {
+          "type": "integer",
+          "description": "Priority-level overprovisioning factor used to determine when to spread traffic to lower priority levels. Defaults to 140.",
+          "minimum": 0
+        },
+        "endpoint_stale_after": {
+          "type": "string",
+          "description": "Duration after which endpoints are considered stale if not refreshed via EDS."
+        },
+        "drop_overloads": {
+          "type": "array",
+          "description": "Configuration for dropping a percentage of traffic.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Name of the drop category."
+              },
+              "drop_percentage": {
+                "type": "object",
+                "description": "The percentage of traffic to drop.",
+                "properties": {
+                  "numerator": {
+                    "type": "integer"
+                  },
+                  "denominator": {
+                    "type": "string",
+                    "enum": ["HUNDRED", "TEN_THOUSAND", "MILLION"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["cluster_name"]
+}

@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "envoy": "https://www.envoyproxy.io/docs/envoy/latest/api-v3/",
+    "xds": "https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:softwareVersion",
+    "Cluster": {
+      "@id": "envoy:config/cluster/v3/cluster.proto",
+      "@type": "schema:SoftwareApplication",
+      "name": "schema:name",
+      "type": "envoy:config/cluster/v3/cluster.proto#Cluster.DiscoveryType",
+      "connect_timeout": "schema:duration",
+      "lb_policy": "envoy:config/cluster/v3/cluster.proto#Cluster.LbPolicy",
+      "load_assignment": "envoy:config/endpoint/v3/endpoint.proto#ClusterLoadAssignment",
+      "health_checks": "envoy:config/core/v3/health_check.proto#HealthCheck",
+      "circuit_breakers": "envoy:config/cluster/v3/circuit_breaker.proto#CircuitBreakers"
+    },
+    "Listener": {
+      "@id": "envoy:config/listener/v3/listener.proto",
+      "@type": "schema:EntryPoint",
+      "name": "schema:name",
+      "address": "envoy:config/core/v3/address.proto#Address",
+      "filter_chains": "envoy:config/listener/v3/listener_components.proto#FilterChain",
+      "listener_filters": "envoy:config/listener/v3/listener_components.proto#ListenerFilter",
+      "traffic_direction": "envoy:config/core/v3/base.proto#TrafficDirection"
+    },
+    "RouteConfiguration": {
+      "@id": "envoy:config/route/v3/route.proto",
+      "@type": "schema:WebAPI",
+      "name": "schema:name",
+      "virtual_hosts": "envoy:config/route/v3/route_components.proto#VirtualHost"
+    },
+    "VirtualHost": {
+      "@id": "envoy:config/route/v3/route_components.proto#VirtualHost",
+      "name": "schema:name",
+      "domains": "schema:url",
+      "routes": "envoy:config/route/v3/route_components.proto#Route"
+    },
+    "Endpoint": {
+      "@id": "envoy:config/endpoint/v3/endpoint.proto",
+      "@type": "schema:ServiceChannel",
+      "cluster_name": "schema:name",
+      "endpoints": "envoy:config/endpoint/v3/endpoint_components.proto#LocalityLbEndpoints"
+    },
+    "DiscoveryRequest": {
+      "@id": "xds#DiscoveryRequest",
+      "version_info": "schema:version",
+      "node": "envoy:config/core/v3/base.proto#Node",
+      "resource_names": "schema:name",
+      "type_url": "schema:additionalType"
+    },
+    "DiscoveryResponse": {
+      "@id": "xds#DiscoveryResponse",
+      "version_info": "schema:version",
+      "resources": "schema:itemListElement",
+      "type_url": "schema:additionalType",
+      "nonce": "schema:identifier"
+    },
+    "Node": {
+      "@id": "envoy:config/core/v3/base.proto#Node",
+      "id": "schema:identifier",
+      "cluster": "schema:memberOf",
+      "locality": "schema:location",
+      "user_agent_name": "schema:applicationCategory"
+    },
+    "SocketAddress": {
+      "@id": "envoy:config/core/v3/address.proto#SocketAddress",
+      "address": "schema:url",
+      "port_value": "schema:identifier",
+      "protocol": "schema:encodingFormat"
+    },
+    "Locality": {
+      "@id": "envoy:config/core/v3/base.proto#Locality",
+      "region": "schema:addressRegion",
+      "zone": "schema:addressLocality",
+      "sub_zone": "schema:addressLocality"
+    }
+  }
+}

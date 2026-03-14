@@ -1,0 +1,328 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy xDS Discovery API
+  description: >-
+    The Envoy xDS (x Discovery Service) REST API provides a set of endpoints
+    for dynamically discovering and configuring Envoy proxy resources. The xDS
+    protocol is the foundation of Envoy's dynamic configuration, enabling a
+    control plane to push configuration updates for clusters (CDS), listeners
+    (LDS), routes (RDS), and endpoints (EDS) to Envoy instances without
+    requiring restarts. This OpenAPI specification covers the REST/JSON variant
+    of the xDS API, which uses HTTP endpoints for resource discovery via the
+    Aggregated Discovery Service (ADS) pattern or individual discovery service
+    endpoints.
+  version: 3.0.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: http://localhost:18000
+    description: Default xDS Management Server
+paths:
+  /v3/discovery:clusters:
+    post:
+      operationId: discoverClusters
+      summary: Cluster Discovery Service (CDS)
+      description: >-
+        Fetches cluster configuration from the management server. The Cluster
+        Discovery Service (CDS) returns a set of dynamically discovered upstream
+        clusters that Envoy should route traffic to. Each cluster defines how
+        Envoy connects to a group of upstream hosts including load balancing
+        policy, connection limits, circuit breaking thresholds, and health
+        checking configuration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryRequest'
+      responses:
+        '200':
+          description: Successful cluster discovery response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryResponse'
+      tags:
+        - Cluster Discovery
+  /v3/discovery:listeners:
+    post:
+      operationId: discoverListeners
+      summary: Listener Discovery Service (LDS)
+      description: >-
+        Fetches listener configuration from the management server. The Listener
+        Discovery Service (LDS) returns a set of listeners that Envoy should
+        configure to accept downstream connections. Each listener defines the
+        address and port to bind to, filter chains for processing connections,
+        and associated TLS context for secure connections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryRequest'
+      responses:
+        '200':
+          description: Successful listener discovery response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryResponse'
+      tags:
+        - Listener Discovery
+  /v3/discovery:routes:
+    post:
+      operationId: discoverRoutes
+      summary: Route Discovery Service (RDS)
+      description: >-
+        Fetches route configuration from the management server. The Route
+        Discovery Service (RDS) returns route configuration that maps incoming
+        requests to specific upstream clusters based on request attributes such
+        as path, headers, and query parameters. Route configurations define
+        virtual hosts, route matching rules, and traffic management policies
+        including retries, timeouts, and rate limiting.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryRequest'
+      responses:
+        '200':
+          description: Successful route discovery response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryResponse'
+      tags:
+        - Route Discovery
+  /v3/discovery:endpoints:
+    post:
+      operationId: discoverEndpoints
+      summary: Endpoint Discovery Service (EDS)
+      description: >-
+        Fetches endpoint configuration from the management server. The Endpoint
+        Discovery Service (EDS) returns a set of endpoint assignments for each
+        cluster, specifying the network addresses of upstream hosts along with
+        load balancing weights, health status, and locality information used for
+        zone-aware routing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryRequest'
+      responses:
+        '200':
+          description: Successful endpoint discovery response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryResponse'
+      tags:
+        - Endpoint Discovery
+  /v3/discovery:secrets:
+    post:
+      operationId: discoverSecrets
+      summary: Secret Discovery Service (SDS)
+      description: >-
+        Fetches secret configuration from the management server. The Secret
+        Discovery Service (SDS) returns TLS certificates, private keys, and
+        trusted CA certificates that Envoy uses for TLS handshakes. SDS enables
+        dynamic rotation of certificates without requiring Envoy restarts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryRequest'
+      responses:
+        '200':
+          description: Successful secret discovery response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryResponse'
+      tags:
+        - Secret Discovery
+  /v3/discovery:runtime:
+    post:
+      operationId: discoverRuntime
+      summary: Runtime Discovery Service (RTDS)
+      description: >-
+        Fetches runtime configuration layers from the management server. The
+        Runtime Discovery Service (RTDS) allows dynamic updates to runtime
+        feature flags and settings without requiring Envoy restarts or
+        redeployments.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoveryRequest'
+      responses:
+        '200':
+          description: Successful runtime discovery response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveryResponse'
+      tags:
+        - Runtime Discovery
+components:
+  schemas:
+    DiscoveryRequest:
+      type: object
+      description: >-
+        A request from an Envoy instance to the management server for xDS
+        resources. Contains the node identity, requested resource names, the
+        type URL of the resource being requested, and version information for
+        ACK/NACK semantics.
+      properties:
+        version_info:
+          type: string
+          description: >-
+            The version of the resources being requested. On the first request
+            this is empty. On subsequent requests it is the version received in
+            the last DiscoveryResponse.
+        node:
+          $ref: '#/components/schemas/Node'
+        resource_names:
+          type: array
+          items:
+            type: string
+          description: >-
+            List of resource names to subscribe to. For LDS and CDS, this is
+            typically empty to receive all resources. For RDS and EDS, this
+            contains the specific route configuration or cluster names.
+        type_url:
+          type: string
+          description: >-
+            The type URL of the resource being requested, such as
+            type.googleapis.com/envoy.config.cluster.v3.Cluster.
+        response_nonce:
+          type: string
+          description: >-
+            The nonce from the most recent successfully processed
+            DiscoveryResponse. Used to pair requests with responses.
+        error_detail:
+          type: object
+          description: >-
+            Error details when the previous DiscoveryResponse could not be
+            applied. Populated when NACKing a configuration update.
+          properties:
+            code:
+              type: integer
+              description: gRPC status code.
+            message:
+              type: string
+              description: Error message describing the rejection reason.
+    DiscoveryResponse:
+      type: object
+      description: >-
+        A response from the management server containing xDS resources. The
+        resources are encoded as protobuf Any messages and identified by their
+        type URL.
+      properties:
+        version_info:
+          type: string
+          description: >-
+            The version of the response data, used for ACK/NACK and
+            request-response pairing.
+        resources:
+          type: array
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+                description: The type URL identifying the resource type.
+            additionalProperties: true
+          description: The xDS resources being returned.
+        type_url:
+          type: string
+          description: The type URL of the resources in this response.
+        nonce:
+          type: string
+          description: >-
+            A nonce that must be provided in the next DiscoveryRequest to ACK or
+            NACK this response.
+        control_plane:
+          type: object
+          description: The control plane instance that sent the response.
+          properties:
+            identifier:
+              type: string
+              description: An opaque identifier for the control plane.
+    Node:
+      type: object
+      description: >-
+        Identifies the Envoy instance making a discovery request. Contains
+        metadata about the proxy node including its identity, cluster
+        membership, locality, and build version.
+      properties:
+        id:
+          type: string
+          description: >-
+            An opaque node identifier for the Envoy instance. This must be set
+            when using any of the xDS APIs.
+        cluster:
+          type: string
+          description: >-
+            The cluster that the Envoy instance belongs to. Defines the
+            redundancy domain for the proxy.
+        metadata:
+          type: object
+          additionalProperties: true
+          description: >-
+            Opaque metadata extending the node identifier. Used by the
+            management server for filtering and configuration targeting.
+        locality:
+          type: object
+          description: The locality the Envoy instance is running in.
+          properties:
+            region:
+              type: string
+              description: Region this proxy belongs to.
+            zone:
+              type: string
+              description: Zone within the region.
+            sub_zone:
+              type: string
+              description: Sub-zone within the zone.
+        user_agent_name:
+          type: string
+          description: >-
+            Free-form string that identifies the entity requesting config, e.g.
+            envoy or grpc.
+        user_agent_version:
+          type: string
+          description: Free-form string that identifies the version of the requesting entity.
+tags:
+  - name: Cluster Discovery
+    description: >-
+      Cluster Discovery Service (CDS) endpoints for dynamically discovering
+      upstream clusters.
+  - name: Listener Discovery
+    description: >-
+      Listener Discovery Service (LDS) endpoints for dynamically discovering
+      listeners.
+  - name: Route Discovery
+    description: >-
+      Route Discovery Service (RDS) endpoints for dynamically discovering
+      route configurations.
+  - name: Endpoint Discovery
+    description: >-
+      Endpoint Discovery Service (EDS) endpoints for dynamically discovering
+      cluster endpoints.
+  - name: Secret Discovery
+    description: >-
+      Secret Discovery Service (SDS) endpoints for dynamically discovering
+      TLS certificates and keys.
+  - name: Runtime Discovery
+    description: >-
+      Runtime Discovery Service (RTDS) endpoints for dynamically discovering
+      runtime configuration layers.

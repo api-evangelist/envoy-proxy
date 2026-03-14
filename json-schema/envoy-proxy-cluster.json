@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "envoy-proxy-cluster.json",
+  "title": "Envoy Proxy Cluster",
+  "description": "An Envoy Proxy Cluster defines a group of logically similar upstream hosts that Envoy connects to. Clusters configure how Envoy discovers, connects to, load balances across, and health checks the upstream endpoints. Each cluster specifies the service discovery type, connection parameters, load balancing policy, circuit breaking thresholds, and optional TLS context for upstream connections.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The unique name for this cluster, used to reference it in route configurations and statistics."
+    },
+    "type": {
+      "type": "string",
+      "description": "The service discovery type to use for resolving the cluster endpoints.",
+      "enum": [
+        "STATIC",
+        "STRICT_DNS",
+        "LOGICAL_DNS",
+        "EDS",
+        "ORIGINAL_DST"
+      ]
+    },
+    "connect_timeout": {
+      "type": "string",
+      "description": "The timeout for new network connections to hosts in the cluster, specified as a duration string such as 5s or 0.25s."
+    },
+    "lb_policy": {
+      "type": "string",
+      "description": "The load balancing policy used when selecting an upstream host from the cluster.",
+      "enum": [
+        "ROUND_ROBIN",
+        "LEAST_REQUEST",
+        "RING_HASH",
+        "RANDOM",
+        "MAGLEV",
+        "CLUSTER_PROVIDED"
+      ]
+    },
+    "load_assignment": {
+      "type": "object",
+      "description": "Static or EDS-resolved endpoint assignments for this cluster.",
+      "properties": {
+        "cluster_name": {
+          "type": "string",
+          "description": "The cluster name that this load assignment corresponds to."
+        },
+        "endpoints": {
+          "type": "array",
+          "description": "List of endpoints grouped by locality.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "locality": {
+                "type": "object",
+                "description": "The locality for this set of endpoints.",
+                "properties": {
+                  "region": {
+                    "type": "string"
+                  },
+                  "zone": {
+                    "type": "string"
+                  },
+                  "sub_zone": {
+                    "type": "string"
+                  }
+                }
+              },
+              "lb_endpoints": {
+                "type": "array",
+                "description": "The list of endpoints in this locality.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "endpoint": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "object",
+                          "properties": {
+                            "socket_address": {
+                              "type": "object",
+                              "properties": {
+                                "address": {
+                                  "type": "string",
+                                  "description": "The IP address or hostname."
+                                },
+                                "port_value": {
+                                  "type": "integer",
+                                  "description": "The port number."
+                                }
+                              },
+                              "required": ["address", "port_value"]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "health_status": {
+                      "type": "string",
+                      "description": "The health status of the endpoint.",
+                      "enum": [
+                        "UNKNOWN",
+                        "HEALTHY",
+                        "UNHEALTHY",
+                        "DRAINING",
+                        "TIMEOUT",
+                        "DEGRADED"
+                      ]
+                    },
+                    "load_balancing_weight": {
+                      "type": "integer",
+                      "description": "The load balancing weight for this endpoint.",
+                      "minimum": 1,
+                      "maximum": 128
+                    }
+                  }
+                }
+              },
+              "priority": {
+                "type": "integer",
+                "description": "The priority of this locality. Lower values are higher priority.",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "health_checks": {
+      "type": "array",
+      "description": "Optional health checking configuration for the cluster.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timeout": {
+            "type": "string",
+            "description": "The time to wait for a health check response."
+          },
+          "interval": {
+            "type": "string",
+            "description": "The interval between health checks."
+          },
+          "unhealthy_threshold": {
+            "type": "integer",
+            "description": "Number of unhealthy checks before a host is marked unhealthy."
+          },
+          "healthy_threshold": {
+            "type": "integer",
+            "description": "Number of healthy checks before a host is marked healthy."
+          },
+          "http_health_check": {
+            "type": "object",
+            "description": "HTTP health check configuration.",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "HTTP path to use in the health check request."
+              },
+              "host": {
+                "type": "string",
+                "description": "Host header value to use in the health check request."
+              }
+            }
+          },
+          "tcp_health_check": {
+            "type": "object",
+            "description": "TCP health check configuration.",
+            "properties": {
+              "send": {
+                "type": "object",
+                "description": "Bytes to send in the health check."
+              },
+              "receive": {
+                "type": "array",
+                "description": "Bytes to expect in the health check response.",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "grpc_health_check": {
+            "type": "object",
+            "description": "gRPC health check configuration.",
+            "properties": {
+              "service_name": {
+                "type": "string",
+                "description": "The service name to use in the gRPC health check."
+              }
+            }
+          }
+        }
+      }
+    },
+    "circuit_breakers": {
+      "type": "object",
+      "description": "Circuit breaking configuration for the cluster.",
+      "properties": {
+        "thresholds": {
+          "type": "array",
+          "description": "List of circuit breaking thresholds per priority level.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "priority": {
+                "type": "string",
+                "description": "The routing priority this threshold applies to.",
+                "enum": ["DEFAULT", "HIGH"]
+              },
+              "max_connections": {
+                "type": "integer",
+                "description": "Maximum number of connections to the cluster."
+              },
+              "max_pending_requests": {
+                "type": "integer",
+                "description": "Maximum number of pending requests to the cluster."
+              },
+              "max_requests": {
+                "type": "integer",
+                "description": "Maximum number of parallel requests to the cluster."
+              },
+              "max_retries": {
+                "type": "integer",
+                "description": "Maximum number of parallel retries to the cluster."
+              }
+            }
+          }
+        }
+      }
+    },
+    "transport_socket": {
+      "type": "object",
+      "description": "Optional transport socket configuration for upstream TLS connections.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the transport socket, typically envoy.transport_sockets.tls."
+        },
+        "typed_config": {
+          "type": "object",
+          "description": "The transport socket typed configuration.",
+          "additionalProperties": true
+        }
+      }
+    },
+    "dns_lookup_family": {
+      "type": "string",
+      "description": "The DNS IP address resolution policy for the cluster.",
+      "enum": ["AUTO", "V4_ONLY", "V6_ONLY", "V4_PREFERRED", "ALL"]
+    },
+    "outlier_detection": {
+      "type": "object",
+      "description": "Outlier detection configuration for ejecting unhealthy hosts.",
+      "properties": {
+        "consecutive_5xx": {
+          "type": "integer",
+          "description": "Number of consecutive 5xx responses before ejection."
+        },
+        "interval": {
+          "type": "string",
+          "description": "The time interval between ejection analysis sweeps."
+        },
+        "base_ejection_time": {
+          "type": "string",
+          "description": "The base time a host is ejected for."
+        },
+        "max_ejection_percent": {
+          "type": "integer",
+          "description": "Maximum percentage of hosts in the cluster that can be ejected.",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    }
+  },
+  "required": ["name", "type"]
+}
