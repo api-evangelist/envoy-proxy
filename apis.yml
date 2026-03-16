@@ -83,7 +83,7 @@ common:
     type: JSONSchema
     description: 'null'
 created: '2026-01-02'
-modified: '2026-03-14'
+modified: '2026-03-16'
 position: Consumer
 description: >-
   Envoy Proxy is an open-source edge and service proxy that is designed for
@@ -98,5 +98,5 @@ description: >-
   managing network traffic.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
