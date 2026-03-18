@@ -14,6 +14,10 @@ apis:
         type: OpenAPI
       - url: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
         type: Documentation
+      - url: https://github.com/envoyproxy/envoy
+        type: GitHubRepository
+      - url: https://github.com/envoyproxy/envoy/releases
+        type: Change Log
     description: >-
       The Envoy Proxy Administration Interface provides a local HTTP-based
       management API for querying and modifying various aspects of the Envoy
@@ -34,6 +38,10 @@ apis:
         type: OpenAPI
       - url: https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol
         type: Documentation
+      - url: https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/xds_api
+        type: Reference
+      - url: https://github.com/envoyproxy/envoy
+        type: GitHubRepository
     description: >-
       The Envoy xDS (x Discovery Service) REST API provides endpoints for
       dynamically discovering and configuring Envoy proxy resources including
@@ -50,40 +58,50 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+  - url: https://www.envoyproxy.io/
+    name: Website | Envoy Proxy
+    type: Website
   - url: https://www.envoyproxy.io/docs/envoy/latest/
     name: Documentation | Envoy Proxy
     type: Documentation
-    description: 'null'
+  - url: https://www.envoyproxy.io/docs/envoy/latest/start/start
+    name: Getting Started | Envoy Proxy
+    type: Getting Started
   - url: https://blog.envoyproxy.io/
     name: Blog | Envoy Proxy
     type: Blog
-    description: 'null'
+  - url: https://github.com/envoyproxy/envoy/releases
+    name: Change Log | Envoy Proxy
+    type: Change Log
+  - url: https://github.com/envoyproxy
+    name: GitHub Organization | Envoy Proxy
+    type: GitHub Organization
   - url: https://github.com/envoyproxy/envoy
-    name: GitHub | Envoy Proxy
-    type: GitHubOrg
-    description: 'null'
+    name: GitHub Repository | Envoy Proxy
+    type: GitHubRepository
+  - url: https://www.envoyproxy.io/community
+    name: Community | Envoy Proxy
+    type: Community
+  - url: https://github.com/envoyproxy/envoy/blob/main/SECURITY.md
+    name: Security Policy | Envoy Proxy
+    type: Security
   - url: json-ld/envoy-proxy-context.jsonld
     name: JSON-LD Context | Envoy Proxy
     type: JSON-LD
-    description: 'null'
   - url: json-schema/envoy-proxy-cluster.json
     name: Cluster JSON Schema
     type: JSONSchema
-    description: 'null'
   - url: json-schema/envoy-proxy-listener.json
     name: Listener JSON Schema
     type: JSONSchema
-    description: 'null'
   - url: json-schema/envoy-proxy-route.json
     name: Route Configuration JSON Schema
     type: JSONSchema
-    description: 'null'
   - url: json-schema/envoy-proxy-endpoint.json
     name: Endpoint JSON Schema
     type: JSONSchema
-    description: 'null'
 created: '2026-01-02'
-modified: '2026-03-16'
+modified: '2026-03-18'
 position: Consumer
 description: >-
   Envoy Proxy is an open-source edge and service proxy that is designed for
