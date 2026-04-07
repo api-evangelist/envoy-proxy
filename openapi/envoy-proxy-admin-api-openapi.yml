@@ -24,7 +24,7 @@ paths:
   /:
     get:
       operationId: getAdminHome
-      summary: Admin Home
+      summary: Envoy Proxy Admin Home
       description: >-
         Returns the admin interface home page with links to all available
         endpoints.
@@ -40,7 +40,7 @@ paths:
   /help:
     get:
       operationId: getHelp
-      summary: List Available Endpoints
+      summary: Envoy Proxy List Available Endpoints
       description: >-
         Returns a list of all available admin endpoints and their
         descriptions.
@@ -56,7 +56,7 @@ paths:
   /ready:
     get:
       operationId: getReady
-      summary: Check Server Readiness
+      summary: Envoy Proxy Check Server Readiness
       description: >-
         Returns a 200 OK response if the server has been initialized and is
         ready to accept traffic. Returns 503 if the server is not yet
@@ -79,7 +79,7 @@ paths:
   /server_info:
     get:
       operationId: getServerInfo
-      summary: Get Server Information
+      summary: Envoy Proxy Get Server Information
       description: >-
         Returns information about the running Envoy server including version,
         uptime, command line options, and hot restart version.
@@ -114,7 +114,7 @@ paths:
   /stats:
     get:
       operationId: getStats
-      summary: Get Statistics
+      summary: Envoy Proxy Get Statistics
       description: >-
         Returns statistics that Envoy has collected, including counters, gauges,
         and histograms. Stats are provided as key-value pairs using a
@@ -164,7 +164,7 @@ paths:
   /stats/prometheus:
     get:
       operationId: getStatsPrometheus
-      summary: Get Statistics in Prometheus Format
+      summary: Envoy Proxy Get Statistics in Prometheus Format
       description: >-
         Returns statistics in Prometheus exposition format suitable for
         scraping by a Prometheus server.
@@ -197,7 +197,7 @@ paths:
   /stats/recentlookups:
     get:
       operationId: getStatsRecentLookups
-      summary: Get Recent Stat Lookups
+      summary: Envoy Proxy Get Recent Stat Lookups
       description: Returns a table of recently looked-up stat names.
       responses:
         '200':
@@ -211,7 +211,7 @@ paths:
   /clusters:
     get:
       operationId: getClusters
-      summary: Get Cluster Information
+      summary: Envoy Proxy Get Cluster Information
       description: >-
         Lists all configured cluster manager clusters including all discovered
         upstream hosts in each cluster along with per-host statistics. Provides
@@ -240,7 +240,7 @@ paths:
   /config_dump:
     get:
       operationId: getConfigDump
-      summary: Dump Current Configuration
+      summary: Envoy Proxy Dump Current Configuration
       description: >-
         Returns the currently loaded configuration in JSON format, including
         bootstrap, clusters, endpoints, listeners, scoped routes, routes,
@@ -289,7 +289,7 @@ paths:
   /init_dump:
     get:
       operationId: getInitDump
-      summary: Dump Initialization Configuration
+      summary: Envoy Proxy Dump Initialization Configuration
       description: >-
         Returns the unmodified configuration as it was loaded during the
         initialization process.
@@ -311,7 +311,7 @@ paths:
   /listeners:
     get:
       operationId: getListeners
-      summary: List Listeners
+      summary: Envoy Proxy List Listeners
       description: >-
         Lists all configured listeners, including their names and the
         addresses they are listening on.
@@ -338,7 +338,7 @@ paths:
   /certs:
     get:
       operationId: getCerts
-      summary: List TLS Certificates
+      summary: Envoy Proxy List TLS Certificates
       description: >-
         Lists all loaded TLS certificates including file name, serial number,
         subject alternate names, and days until expiration in JSON format.
@@ -368,7 +368,7 @@ paths:
   /runtime:
     get:
       operationId: getRuntime
-      summary: Get Runtime Settings
+      summary: Envoy Proxy Get Runtime Settings
       description: >-
         Returns the current runtime settings, including any overrides that
         have been applied via the admin interface or runtime layer
@@ -392,7 +392,7 @@ paths:
   /runtime_modify:
     post:
       operationId: postRuntimeModify
-      summary: Modify Runtime Settings
+      summary: Envoy Proxy Modify Runtime Settings
       description: >-
         Adds or modifies runtime values as passed in query parameters. To
         delete a previously added override, use an empty value for the
@@ -417,7 +417,7 @@ paths:
   /logging:
     post:
       operationId: postLogging
-      summary: View or Modify Log Levels
+      summary: Envoy Proxy View or Modify Log Levels
       description: >-
         Enable or change logging levels at runtime. Without query parameters,
         returns the current logging levels. With a query parameter, sets the
@@ -455,7 +455,7 @@ paths:
   /memory:
     get:
       operationId: getMemory
-      summary: Get Memory Usage
+      summary: Envoy Proxy Get Memory Usage
       description: >-
         Returns current memory allocation and heap usage in bytes, providing
         insights into memory consumption of the Envoy process.
@@ -487,7 +487,7 @@ paths:
   /hot_restart_version:
     get:
       operationId: getHotRestartVersion
-      summary: Get Hot Restart Version
+      summary: Envoy Proxy Get Hot Restart Version
       description: >-
         Returns the hot restart compatibility version. This can be matched
         against the output of the --hot-restart-version command line option
@@ -505,7 +505,7 @@ paths:
   /reset_counters:
     post:
       operationId: postResetCounters
-      summary: Reset Counters
+      summary: Envoy Proxy Reset Counters
       description: >-
         Resets all counters to zero. This is useful when used in conjunction
         with GET /stats during debugging sessions.
@@ -521,7 +521,7 @@ paths:
   /drain_listeners:
     post:
       operationId: postDrainListeners
-      summary: Drain Listeners
+      summary: Envoy Proxy Drain Listeners
       description: >-
         Drains all listeners, causing them to stop accepting new connections.
         Existing connections are allowed to complete.
@@ -551,7 +551,7 @@ paths:
   /healthcheck/fail:
     post:
       operationId: postHealthcheckFail
-      summary: Fail Health Checks
+      summary: Envoy Proxy Fail Health Checks
       description: >-
         Causes the server to fail inbound health checks. This requires the
         use of the HTTP health check filter. Useful for draining a server
@@ -568,7 +568,7 @@ paths:
   /healthcheck/ok:
     post:
       operationId: postHealthcheckOk
-      summary: Resume Health Checks
+      summary: Envoy Proxy Resume Health Checks
       description: >-
         Negates the effect of POST /healthcheck/fail, causing the server to
         resume passing inbound health checks.
@@ -584,7 +584,7 @@ paths:
   /quitquitquit:
     post:
       operationId: postQuitQuitQuit
-      summary: Shutdown Server
+      summary: Envoy Proxy Shutdown Server
       description: Cleanly exits the Envoy server process.
       responses:
         '200':
@@ -598,7 +598,7 @@ paths:
   /cpuprofiler:
     post:
       operationId: postCpuProfiler
-      summary: Enable or Disable CPU Profiler
+      summary: Envoy Proxy Enable or Disable CPU Profiler
       description: >-
         Enables or disables the CPU profiler. Requires compilation with
         gperftools. The output file can be then analyzed with pprof.
@@ -623,7 +623,7 @@ paths:
   /heapprofiler:
     post:
       operationId: postHeapProfiler
-      summary: Enable or Disable Heap Profiler
+      summary: Envoy Proxy Enable or Disable Heap Profiler
       description: >-
         Enables or disables the heap profiler. Requires compilation with
         gperftools.
@@ -648,7 +648,7 @@ paths:
   /tap:
     post:
       operationId: postTap
-      summary: Tap Traffic
+      summary: Envoy Proxy Tap Traffic
       description: >-
         Installs a traffic tap configuration that allows inspecting traffic
         matching specific filter rules. The tap configuration is supplied in
@@ -672,7 +672,7 @@ paths:
   /contention:
     get:
       operationId: getContention
-      summary: Get Mutex Contention Stats
+      summary: Envoy Proxy Get Mutex Contention Stats
       description: >-
         Dumps current Envoy mutex contention stats in JSON format, if mutex
         tracing is enabled.

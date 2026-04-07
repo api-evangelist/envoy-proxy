@@ -25,7 +25,7 @@ paths:
   /v3/discovery:clusters:
     post:
       operationId: discoverClusters
-      summary: Cluster Discovery Service (CDS)
+      summary: Envoy Proxy Cluster Discovery Service (CDS)
       description: >-
         Fetches cluster configuration from the management server. The Cluster
         Discovery Service (CDS) returns a set of dynamically discovered upstream
@@ -51,7 +51,7 @@ paths:
   /v3/discovery:listeners:
     post:
       operationId: discoverListeners
-      summary: Listener Discovery Service (LDS)
+      summary: Envoy Proxy Listener Discovery Service (LDS)
       description: >-
         Fetches listener configuration from the management server. The Listener
         Discovery Service (LDS) returns a set of listeners that Envoy should
@@ -76,7 +76,7 @@ paths:
   /v3/discovery:routes:
     post:
       operationId: discoverRoutes
-      summary: Route Discovery Service (RDS)
+      summary: Envoy Proxy Route Discovery Service (RDS)
       description: >-
         Fetches route configuration from the management server. The Route
         Discovery Service (RDS) returns route configuration that maps incoming
@@ -102,7 +102,7 @@ paths:
   /v3/discovery:endpoints:
     post:
       operationId: discoverEndpoints
-      summary: Endpoint Discovery Service (EDS)
+      summary: Envoy Proxy Endpoint Discovery Service (EDS)
       description: >-
         Fetches endpoint configuration from the management server. The Endpoint
         Discovery Service (EDS) returns a set of endpoint assignments for each
@@ -127,7 +127,7 @@ paths:
   /v3/discovery:secrets:
     post:
       operationId: discoverSecrets
-      summary: Secret Discovery Service (SDS)
+      summary: Envoy Proxy Secret Discovery Service (SDS)
       description: >-
         Fetches secret configuration from the management server. The Secret
         Discovery Service (SDS) returns TLS certificates, private keys, and
@@ -151,7 +151,7 @@ paths:
   /v3/discovery:runtime:
     post:
       operationId: discoverRuntime
-      summary: Runtime Discovery Service (RTDS)
+      summary: Envoy Proxy Runtime Discovery Service (RTDS)
       description: >-
         Fetches runtime configuration layers from the management server. The
         Runtime Discovery Service (RTDS) allows dynamic updates to runtime

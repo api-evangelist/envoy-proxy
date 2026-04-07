@@ -38,7 +38,8 @@ apis:
         type: OpenAPI
       - url: https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol
         type: Documentation
-      - url: https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/xds_api
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/xds_api
         type: Reference
       - url: https://github.com/envoyproxy/envoy
         type: GitHubRepository
@@ -57,13 +58,17 @@ apis:
       - Proxies
       - Service Mesh
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/rate_limit_filter
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/rate_limit_filter
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/rate_limit_filter
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/rate_limit_filter
         type: Documentation
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/ratelimit/v3/rls.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/ratelimit/v3/rls.proto
         type: Reference
-      - url: https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/other_features/global_rate_limiting
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/other_features/global_rate_limiting
         type: Documentation
       - url: https://github.com/envoyproxy/envoy
         type: GitHubRepository
@@ -80,9 +85,11 @@ apis:
       - Discovery
       - Proxies
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/health/v3/hds.proto
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/health/v3/hds.proto
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/health/v3/hds.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/health/v3/hds.proto
         type: Documentation
       - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/service
         type: Reference
@@ -101,9 +108,11 @@ apis:
       - Observability
       - Proxies
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/accesslog/v3/als.proto
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/accesslog/v3/als.proto
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/accesslog/v3/als.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/accesslog/v3/als.proto
         type: Documentation
       - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/service
         type: Reference
@@ -122,11 +131,14 @@ apis:
       - Extensibility
       - Proxies
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_proc_filter
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_proc_filter
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_proc_filter
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_proc_filter
         type: Documentation
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/ext_proc/v3/external_processor.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/ext_proc/v3/external_processor.proto
         type: Reference
       - url: https://github.com/envoyproxy/envoy
         type: GitHubRepository
@@ -143,11 +155,14 @@ apis:
       - Security
       - Proxies
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_authz_filter
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_authz_filter
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_authz_filter
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_authz_filter
         type: Documentation
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/filters/http/ext_authz/v3/ext_authz.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/filters/http/ext_authz/v3/ext_authz.proto
         type: Reference
       - url: https://github.com/envoyproxy/envoy
         type: GitHubRepository
@@ -164,9 +179,11 @@ apis:
       - Observability
       - Proxies
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/metrics/v3/metrics_service.proto
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/metrics/v3/metrics_service.proto
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/metrics/v3/metrics_service.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/metrics/v3/metrics_service.proto
         type: Documentation
       - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/service
         type: Reference
@@ -185,11 +202,14 @@ apis:
       - Debugging
       - Proxies
       - gRPC
-    humanURL: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/tap_filter
+    humanURL: 
+      https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/tap_filter
     properties:
-      - url: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/tap_filter
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/tap_filter
         type: Documentation
-      - url: https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/tap/v3/tap.proto
+      - url: 
+          https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/tap/v3/tap.proto
         type: Reference
       - url: https://github.com/envoyproxy/envoy
         type: GitHubRepository
@@ -265,16 +285,12 @@ created: '2026-01-02'
 modified: '2026-03-18'
 position: Consumer
 description: >-
-  Envoy Proxy is an open-source edge and service proxy that is designed for
-  cloud-native applications. It acts as a gateway for all incoming and outgoing
-  traffic within a microservices architecture, providing functionalities such as
-  load balancing, service discovery, encryption, authentication, and
-  observability. Envoy Proxy is known for its high performance and low latency,
-  making it a popular choice for companies seeking to optimize their network
-  traffic and improve overall system efficiency. By handling the complexities of
-  network communication, Envoy Proxy allows developers to focus on building and
-  scaling their applications without having to worry about the intricacies of
-  managing network traffic.
+  Envoy Proxy is an open-source edge and service proxy that is designed for cloud-native
+  applications. It acts as a gateway for all incoming and outgoing traffic within
+  a microservices architecture, providing functionalities such as load balancing,
+  service discovery, encryption, authentication, and observability. Envoy Proxy is
+  known for its high performance and low latency, making it a popular choice for companies
+  seeking to optimize their network traffic and improve overall system efficiency.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
