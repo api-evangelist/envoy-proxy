@@ -686,27 +686,27 @@ paths:
       tags:
         - Debugging
 tags:
-  - name: General
-    description: General admin interface endpoints.
-  - name: Health
-    description: Health check management endpoints.
-  - name: Server
-    description: Server information and lifecycle endpoints.
-  - name: Statistics
-    description: Statistics and metrics endpoints.
+  - name: Certificates
+    description: TLS certificate information endpoints.
   - name: Clusters
     description: Cluster management and information endpoints.
   - name: Configuration
     description: Configuration inspection and dump endpoints.
+  - name: Debugging
+    description: Debugging and traffic inspection endpoints.
+  - name: General
+    description: General admin interface endpoints.
+  - name: Health
+    description: Health check management endpoints.
   - name: Listeners
     description: Listener management endpoints.
-  - name: Certificates
-    description: TLS certificate information endpoints.
-  - name: Runtime
-    description: Runtime configuration management endpoints.
   - name: Logging
     description: Logging level management endpoints.
   - name: Profiling
     description: CPU and heap profiling endpoints.
-  - name: Debugging
-    description: Debugging and traffic inspection endpoints.
+  - name: Runtime
+    description: Runtime configuration management endpoints.
+  - name: Server
+    description: Server information and lifecycle endpoints.
+  - name: Statistics
+    description: Statistics and metrics endpoints.

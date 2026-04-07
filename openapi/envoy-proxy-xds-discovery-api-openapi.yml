@@ -306,6 +306,10 @@ tags:
     description: >-
       Cluster Discovery Service (CDS) endpoints for dynamically discovering
       upstream clusters.
+  - name: Endpoint Discovery
+    description: >-
+      Endpoint Discovery Service (EDS) endpoints for dynamically discovering
+      cluster endpoints.
   - name: Listener Discovery
     description: >-
       Listener Discovery Service (LDS) endpoints for dynamically discovering
@@ -314,15 +318,11 @@ tags:
     description: >-
       Route Discovery Service (RDS) endpoints for dynamically discovering
       route configurations.
-  - name: Endpoint Discovery
-    description: >-
-      Endpoint Discovery Service (EDS) endpoints for dynamically discovering
-      cluster endpoints.
-  - name: Secret Discovery
-    description: >-
-      Secret Discovery Service (SDS) endpoints for dynamically discovering
-      TLS certificates and keys.
   - name: Runtime Discovery
     description: >-
       Runtime Discovery Service (RTDS) endpoints for dynamically discovering
       runtime configuration layers.
+  - name: Secret Discovery
+    description: >-
+      Secret Discovery Service (SDS) endpoints for dynamically discovering
+      TLS certificates and keys.
