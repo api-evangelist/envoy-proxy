@@ -262,7 +262,7 @@ common:
     name: v3 API Reference | Envoy Proxy
     type: Reference
 created: '2026-01-02'
-modified: '2026-03-18'
+modified: '2026-04-28'
 position: Consumer
 description: >-
   Envoy Proxy is an open-source edge and service proxy that is designed for cloud-native
