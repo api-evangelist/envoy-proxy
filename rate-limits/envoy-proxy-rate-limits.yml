@@ -4,123 +4,46 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Envoy Proxy
 providerId: envoy-proxy
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
+  - Rate Limiting
   - Gateways
   - Proxies
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Envoy Proxy API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Service Mesh
+  - Open Source
+description: Envoy Proxy is self-hosted open-source software, so there is no upstream "service" rate
+  limit to publish. Envoy itself implements rate limiting as a feature (local and global rate-limit filters,
+  the gRPC Rate Limit Service), and the operator chooses the limits they want to enforce on their own
+  traffic. The numbers below are not platform-imposed quotas; they describe Envoy's own rate-limit machinery
+  and the response codes it emits when configured.
+sources:
+  - https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/rate_limit_filter
+  - https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/local_rate_limit_filter
+notes: Envoy is open-source infrastructure; limits are operator-defined. This file documents Envoy's
+  configurable rate-limit features rather than a platform pricing tier.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Envoy Proxy Admin API
-      - Envoy Proxy xDS Discovery API
-      - Envoy Proxy Rate Limit Service API
-      - Envoy Proxy Health Discovery Service API
-      - Envoy Proxy gRPC Access Log Service API
-      - Envoy Proxy External Processing API
-      - Envoy Proxy External Authorization API
-      - Envoy Proxy Metrics Service API
-      - Envoy Proxy Tap Service API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Envoy Proxy Admin API
-      - Envoy Proxy xDS Discovery API
-      - Envoy Proxy Rate Limit Service API
-      - Envoy Proxy Health Discovery Service API
-      - Envoy Proxy gRPC Access Log Service API
-      - Envoy Proxy External Processing API
-      - Envoy Proxy External Authorization API
-      - Envoy Proxy Metrics Service API
-      - Envoy Proxy Tap Service API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Envoy Proxy Admin API
-      - Envoy Proxy xDS Discovery API
-      - Envoy Proxy Rate Limit Service API
-      - Envoy Proxy Health Discovery Service API
-      - Envoy Proxy gRPC Access Log Service API
-      - Envoy Proxy External Processing API
-      - Envoy Proxy External Authorization API
-      - Envoy Proxy Metrics Service API
-      - Envoy Proxy Tap Service API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Envoy Proxy Admin API
-      - Envoy Proxy xDS Discovery API
-      - Envoy Proxy Rate Limit Service API
-      - Envoy Proxy Health Discovery Service API
-      - Envoy Proxy gRPC Access Log Service API
-      - Envoy Proxy External Processing API
-      - Envoy Proxy External Authorization API
-      - Envoy Proxy Metrics Service API
-      - Envoy Proxy Tap Service API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Envoy Proxy Admin API
-      - Envoy Proxy xDS Discovery API
-      - Envoy Proxy Rate Limit Service API
-      - Envoy Proxy Health Discovery Service API
-      - Envoy Proxy gRPC Access Log Service API
-      - Envoy Proxy External Processing API
-      - Envoy Proxy External Authorization API
-      - Envoy Proxy Metrics Service API
-      - Envoy Proxy Tap Service API
+  - name: Operator-configured global rate limit
+    scope: descriptor
+    metric: varies
+    limit: operator-defined via Rate Limit Service descriptors
+  - name: Operator-configured local rate limit
+    scope: route/cluster
+    metric: tokens_per_second
+    limit: operator-defined via token-bucket fill_interval and max_tokens
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Token bucket
+    description: Envoy's local rate limiter uses a token-bucket algorithm; operators specify max_tokens,
+      tokens_per_fill, and fill_interval per route or cluster.
+  - name: Global rate limiting via RLS
+    description: Global limits are enforced by an external gRPC Rate Limit Service; Envoy sends descriptors
+      and the RLS returns OVER_LIMIT or OK.
+  - name: Status override
+    description: The HTTP status returned on throttle is configurable (defaults to 429); operators may
+      also enforce a 503 envoy_rate_limited response on the local filter.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
