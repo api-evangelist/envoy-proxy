@@ -1,0 +1,1042 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy Admin API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying
+    various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and
+    managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must
+    be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so
+    access should be restricted in production environments.
+  tags:
+  - Envoy
+  - Proxy
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: envoy-proxy
+    baseUri: http://localhost:9901
+    description: Envoy Proxy Admin API HTTP API.
+    resources:
+    - name: resource
+      path: /
+      operations:
+      - name: getadminhome
+        method: GET
+        description: Envoy Proxy Admin Home
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: help
+      path: /help
+      operations:
+      - name: gethelp
+        method: GET
+        description: Envoy Proxy List Available Endpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ready
+      path: /ready
+      operations:
+      - name: getready
+        method: GET
+        description: Envoy Proxy Check Server Readiness
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: server-info
+      path: /server_info
+      operations:
+      - name: getserverinfo
+        method: GET
+        description: Envoy Proxy Get Server Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: stats
+      path: /stats
+      operations:
+      - name: getstats
+        method: GET
+        description: Envoy Proxy Get Statistics
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+          description: Output format for the statistics.
+        - name: filter
+          in: query
+          type: string
+          description: Regular expression to filter the returned statistics by name.
+        - name: usedonly
+          in: query
+          type: boolean
+          description: Only return statistics that have been written to by Envoy.
+        - name: histogram_buckets
+          in: query
+          type: string
+          description: Control histogram output mode.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: stats-prometheus
+      path: /stats/prometheus
+      operations:
+      - name: getstatsprometheus
+        method: GET
+        description: Envoy Proxy Get Statistics in Prometheus Format
+        inputParameters:
+        - name: usedonly
+          in: query
+          type: boolean
+          description: Only return statistics that have been written to by Envoy.
+        - name: text_readouts
+          in: query
+          type: boolean
+          description: Include text readout gauges in the output.
+        - name: filter
+          in: query
+          type: string
+          description: Regular expression to filter the returned statistics by name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: stats-recentlookups
+      path: /stats/recentlookups
+      operations:
+      - name: getstatsrecentlookups
+        method: GET
+        description: Envoy Proxy Get Recent Stat Lookups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: clusters
+      path: /clusters
+      operations:
+      - name: getclusters
+        method: GET
+        description: Envoy Proxy Get Cluster Information
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+          description: Output format for cluster information.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: config-dump
+      path: /config_dump
+      operations:
+      - name: getconfigdump
+        method: GET
+        description: Envoy Proxy Dump Current Configuration
+        inputParameters:
+        - name: resource
+          in: query
+          type: string
+          description: Filter the configuration dump to only return the specified resource type.
+        - name: mask
+          in: query
+          type: string
+          description: Field mask to apply to the configuration dump, limiting which fields are returned.
+        - name: name_regex
+          in: query
+          type: string
+          description: Regular expression to filter the returned configuration by resource name.
+        - name: include_eds
+          in: query
+          type: boolean
+          description: Include EDS configuration in the dump.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: init-dump
+      path: /init_dump
+      operations:
+      - name: getinitdump
+        method: GET
+        description: Envoy Proxy Dump Initialization Configuration
+        inputParameters:
+        - name: mask
+          in: query
+          type: string
+          description: Field mask to apply to the initialization dump.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: listeners
+      path: /listeners
+      operations:
+      - name: getlisteners
+        method: GET
+        description: Envoy Proxy List Listeners
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+          description: Output format for listener information.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: certs
+      path: /certs
+      operations:
+      - name: getcerts
+        method: GET
+        description: Envoy Proxy List TLS Certificates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: runtime
+      path: /runtime
+      operations:
+      - name: getruntime
+        method: GET
+        description: Envoy Proxy Get Runtime Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: runtime-modify
+      path: /runtime_modify
+      operations:
+      - name: postruntimemodify
+        method: POST
+        description: Envoy Proxy Modify Runtime Settings
+        inputParameters:
+        - name: key
+          in: query
+          type: string
+          description: Key-value pairs to set as runtime overrides. Multiple parameters can be passed.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: logging
+      path: /logging
+      operations:
+      - name: postlogging
+        method: POST
+        description: Envoy Proxy View or Modify Log Levels
+        inputParameters:
+        - name: level
+          in: query
+          type: string
+          description: Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical,
+            and off.
+        - name: paths
+          in: query
+          type: string
+          description: Set a glob pattern for file path to filter the log output.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: memory
+      path: /memory
+      operations:
+      - name: getmemory
+        method: GET
+        description: Envoy Proxy Get Memory Usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: hot-restart-version
+      path: /hot_restart_version
+      operations:
+      - name: gethotrestartversion
+        method: GET
+        description: Envoy Proxy Get Hot Restart Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reset-counters
+      path: /reset_counters
+      operations:
+      - name: postresetcounters
+        method: POST
+        description: Envoy Proxy Reset Counters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: drain-listeners
+      path: /drain_listeners
+      operations:
+      - name: postdrainlisteners
+        method: POST
+        description: Envoy Proxy Drain Listeners
+        inputParameters:
+        - name: graceful
+          in: query
+          type: boolean
+          description: When set, listeners are drained gracefully with a period where both old and new listeners accept connections.
+        - name: inboundonly
+          in: query
+          type: boolean
+          description: Drain only inbound listeners and leave outbound listeners intact.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: healthcheck-fail
+      path: /healthcheck/fail
+      operations:
+      - name: posthealthcheckfail
+        method: POST
+        description: Envoy Proxy Fail Health Checks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: healthcheck-ok
+      path: /healthcheck/ok
+      operations:
+      - name: posthealthcheckok
+        method: POST
+        description: Envoy Proxy Resume Health Checks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: quitquitquit
+      path: /quitquitquit
+      operations:
+      - name: postquitquitquit
+        method: POST
+        description: Envoy Proxy Shutdown Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cpuprofiler
+      path: /cpuprofiler
+      operations:
+      - name: postcpuprofiler
+        method: POST
+        description: Envoy Proxy Enable or Disable CPU Profiler
+        inputParameters:
+        - name: enable
+          in: query
+          type: string
+          description: Enable (y) or disable (n) the CPU profiler.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: heapprofiler
+      path: /heapprofiler
+      operations:
+      - name: postheapprofiler
+        method: POST
+        description: Envoy Proxy Enable or Disable Heap Profiler
+        inputParameters:
+        - name: enable
+          in: query
+          type: string
+          description: Enable (y) or disable (n) the heap profiler.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tap
+      path: /tap
+      operations:
+      - name: posttap
+        method: POST
+        description: Envoy Proxy Tap Traffic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: contention
+      path: /contention
+      operations:
+      - name: getcontention
+        method: GET
+        description: Envoy Proxy Get Mutex Contention Stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: envoy-proxy-rest
+    description: REST adapter for Envoy Proxy Admin API.
+    resources:
+    - path: /
+      name: getadminhome
+      operations:
+      - method: GET
+        name: getadminhome
+        description: Envoy Proxy Admin Home
+        call: envoy-proxy.getadminhome
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /help
+      name: gethelp
+      operations:
+      - method: GET
+        name: gethelp
+        description: Envoy Proxy List Available Endpoints
+        call: envoy-proxy.gethelp
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /ready
+      name: getready
+      operations:
+      - method: GET
+        name: getready
+        description: Envoy Proxy Check Server Readiness
+        call: envoy-proxy.getready
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /server_info
+      name: getserverinfo
+      operations:
+      - method: GET
+        name: getserverinfo
+        description: Envoy Proxy Get Server Information
+        call: envoy-proxy.getserverinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /stats
+      name: getstats
+      operations:
+      - method: GET
+        name: getstats
+        description: Envoy Proxy Get Statistics
+        call: envoy-proxy.getstats
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /stats/prometheus
+      name: getstatsprometheus
+      operations:
+      - method: GET
+        name: getstatsprometheus
+        description: Envoy Proxy Get Statistics in Prometheus Format
+        call: envoy-proxy.getstatsprometheus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /stats/recentlookups
+      name: getstatsrecentlookups
+      operations:
+      - method: GET
+        name: getstatsrecentlookups
+        description: Envoy Proxy Get Recent Stat Lookups
+        call: envoy-proxy.getstatsrecentlookups
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /clusters
+      name: getclusters
+      operations:
+      - method: GET
+        name: getclusters
+        description: Envoy Proxy Get Cluster Information
+        call: envoy-proxy.getclusters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /config_dump
+      name: getconfigdump
+      operations:
+      - method: GET
+        name: getconfigdump
+        description: Envoy Proxy Dump Current Configuration
+        call: envoy-proxy.getconfigdump
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /init_dump
+      name: getinitdump
+      operations:
+      - method: GET
+        name: getinitdump
+        description: Envoy Proxy Dump Initialization Configuration
+        call: envoy-proxy.getinitdump
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /listeners
+      name: getlisteners
+      operations:
+      - method: GET
+        name: getlisteners
+        description: Envoy Proxy List Listeners
+        call: envoy-proxy.getlisteners
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /certs
+      name: getcerts
+      operations:
+      - method: GET
+        name: getcerts
+        description: Envoy Proxy List TLS Certificates
+        call: envoy-proxy.getcerts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /runtime
+      name: getruntime
+      operations:
+      - method: GET
+        name: getruntime
+        description: Envoy Proxy Get Runtime Settings
+        call: envoy-proxy.getruntime
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /runtime_modify
+      name: postruntimemodify
+      operations:
+      - method: POST
+        name: postruntimemodify
+        description: Envoy Proxy Modify Runtime Settings
+        call: envoy-proxy.postruntimemodify
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /logging
+      name: postlogging
+      operations:
+      - method: POST
+        name: postlogging
+        description: Envoy Proxy View or Modify Log Levels
+        call: envoy-proxy.postlogging
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /memory
+      name: getmemory
+      operations:
+      - method: GET
+        name: getmemory
+        description: Envoy Proxy Get Memory Usage
+        call: envoy-proxy.getmemory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /hot_restart_version
+      name: gethotrestartversion
+      operations:
+      - method: GET
+        name: gethotrestartversion
+        description: Envoy Proxy Get Hot Restart Version
+        call: envoy-proxy.gethotrestartversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /reset_counters
+      name: postresetcounters
+      operations:
+      - method: POST
+        name: postresetcounters
+        description: Envoy Proxy Reset Counters
+        call: envoy-proxy.postresetcounters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /drain_listeners
+      name: postdrainlisteners
+      operations:
+      - method: POST
+        name: postdrainlisteners
+        description: Envoy Proxy Drain Listeners
+        call: envoy-proxy.postdrainlisteners
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /healthcheck/fail
+      name: posthealthcheckfail
+      operations:
+      - method: POST
+        name: posthealthcheckfail
+        description: Envoy Proxy Fail Health Checks
+        call: envoy-proxy.posthealthcheckfail
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /healthcheck/ok
+      name: posthealthcheckok
+      operations:
+      - method: POST
+        name: posthealthcheckok
+        description: Envoy Proxy Resume Health Checks
+        call: envoy-proxy.posthealthcheckok
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /quitquitquit
+      name: postquitquitquit
+      operations:
+      - method: POST
+        name: postquitquitquit
+        description: Envoy Proxy Shutdown Server
+        call: envoy-proxy.postquitquitquit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /cpuprofiler
+      name: postcpuprofiler
+      operations:
+      - method: POST
+        name: postcpuprofiler
+        description: Envoy Proxy Enable or Disable CPU Profiler
+        call: envoy-proxy.postcpuprofiler
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /heapprofiler
+      name: postheapprofiler
+      operations:
+      - method: POST
+        name: postheapprofiler
+        description: Envoy Proxy Enable or Disable Heap Profiler
+        call: envoy-proxy.postheapprofiler
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /tap
+      name: posttap
+      operations:
+      - method: POST
+        name: posttap
+        description: Envoy Proxy Tap Traffic
+        call: envoy-proxy.posttap
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contention
+      name: getcontention
+      operations:
+      - method: GET
+        name: getcontention
+        description: Envoy Proxy Get Mutex Contention Stats
+        call: envoy-proxy.getcontention
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: envoy-proxy-mcp
+    transport: http
+    description: MCP adapter for Envoy Proxy Admin API for AI agent use.
+    tools:
+    - name: getadminhome
+      description: Envoy Proxy Admin Home
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getadminhome
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gethelp
+      description: Envoy Proxy List Available Endpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.gethelp
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getready
+      description: Envoy Proxy Check Server Readiness
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getready
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getserverinfo
+      description: Envoy Proxy Get Server Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getserverinfo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getstats
+      description: Envoy Proxy Get Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getstats
+      with:
+        format: tools.format
+        filter: tools.filter
+        usedonly: tools.usedonly
+        histogram_buckets: tools.histogram_buckets
+      inputParameters:
+      - name: format
+        type: string
+        description: Output format for the statistics.
+      - name: filter
+        type: string
+        description: Regular expression to filter the returned statistics by name.
+      - name: usedonly
+        type: boolean
+        description: Only return statistics that have been written to by Envoy.
+      - name: histogram_buckets
+        type: string
+        description: Control histogram output mode.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getstatsprometheus
+      description: Envoy Proxy Get Statistics in Prometheus Format
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getstatsprometheus
+      with:
+        usedonly: tools.usedonly
+        text_readouts: tools.text_readouts
+        filter: tools.filter
+      inputParameters:
+      - name: usedonly
+        type: boolean
+        description: Only return statistics that have been written to by Envoy.
+      - name: text_readouts
+        type: boolean
+        description: Include text readout gauges in the output.
+      - name: filter
+        type: string
+        description: Regular expression to filter the returned statistics by name.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getstatsrecentlookups
+      description: Envoy Proxy Get Recent Stat Lookups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getstatsrecentlookups
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getclusters
+      description: Envoy Proxy Get Cluster Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getclusters
+      with:
+        format: tools.format
+      inputParameters:
+      - name: format
+        type: string
+        description: Output format for cluster information.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getconfigdump
+      description: Envoy Proxy Dump Current Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getconfigdump
+      with:
+        resource: tools.resource
+        mask: tools.mask
+        name_regex: tools.name_regex
+        include_eds: tools.include_eds
+      inputParameters:
+      - name: resource
+        type: string
+        description: Filter the configuration dump to only return the specified resource type.
+      - name: mask
+        type: string
+        description: Field mask to apply to the configuration dump, limiting which fields are returned.
+      - name: name_regex
+        type: string
+        description: Regular expression to filter the returned configuration by resource name.
+      - name: include_eds
+        type: boolean
+        description: Include EDS configuration in the dump.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getinitdump
+      description: Envoy Proxy Dump Initialization Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getinitdump
+      with:
+        mask: tools.mask
+      inputParameters:
+      - name: mask
+        type: string
+        description: Field mask to apply to the initialization dump.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlisteners
+      description: Envoy Proxy List Listeners
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getlisteners
+      with:
+        format: tools.format
+      inputParameters:
+      - name: format
+        type: string
+        description: Output format for listener information.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcerts
+      description: Envoy Proxy List TLS Certificates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getcerts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getruntime
+      description: Envoy Proxy Get Runtime Settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getruntime
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postruntimemodify
+      description: Envoy Proxy Modify Runtime Settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postruntimemodify
+      with:
+        key: tools.key
+      inputParameters:
+      - name: key
+        type: string
+        description: Key-value pairs to set as runtime overrides. Multiple parameters can be passed.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postlogging
+      description: Envoy Proxy View or Modify Log Levels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postlogging
+      with:
+        level: tools.level
+        paths: tools.paths
+      inputParameters:
+      - name: level
+        type: string
+        description: Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical,
+          and off.
+      - name: paths
+        type: string
+        description: Set a glob pattern for file path to filter the log output.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getmemory
+      description: Envoy Proxy Get Memory Usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getmemory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gethotrestartversion
+      description: Envoy Proxy Get Hot Restart Version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.gethotrestartversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postresetcounters
+      description: Envoy Proxy Reset Counters
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postresetcounters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postdrainlisteners
+      description: Envoy Proxy Drain Listeners
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postdrainlisteners
+      with:
+        graceful: tools.graceful
+        inboundonly: tools.inboundonly
+      inputParameters:
+      - name: graceful
+        type: boolean
+        description: When set, listeners are drained gracefully with a period where both old and new listeners accept connections.
+      - name: inboundonly
+        type: boolean
+        description: Drain only inbound listeners and leave outbound listeners intact.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: posthealthcheckfail
+      description: Envoy Proxy Fail Health Checks
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.posthealthcheckfail
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: posthealthcheckok
+      description: Envoy Proxy Resume Health Checks
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.posthealthcheckok
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postquitquitquit
+      description: Envoy Proxy Shutdown Server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postquitquitquit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postcpuprofiler
+      description: Envoy Proxy Enable or Disable CPU Profiler
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postcpuprofiler
+      with:
+        enable: tools.enable
+      inputParameters:
+      - name: enable
+        type: string
+        description: Enable (y) or disable (n) the CPU profiler.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postheapprofiler
+      description: Envoy Proxy Enable or Disable Heap Profiler
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.postheapprofiler
+      with:
+        enable: tools.enable
+      inputParameters:
+      - name: enable
+        type: string
+        description: Enable (y) or disable (n) the heap profiler.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: posttap
+      description: Envoy Proxy Tap Traffic
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: envoy-proxy.posttap
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcontention
+      description: Envoy Proxy Get Mutex Contention Stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: envoy-proxy.getcontention
+      outputParameters:
+      - type: object
+        mapping: $.
