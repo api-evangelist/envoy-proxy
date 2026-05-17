@@ -17,7 +17,7 @@ apis:
       - url: https://github.com/envoyproxy/envoy
         type: GitHubRepository
       - url: https://github.com/envoyproxy/envoy/releases
-        type: Change Log
+        type: ChangeLog
     description: >-
       The Envoy Proxy Administration Interface provides a local HTTP-based
       management API for querying and modifying various aspects of the Envoy
@@ -215,16 +215,16 @@ common:
     type: Documentation
   - url: https://www.envoyproxy.io/docs/envoy/latest/start/start
     name: Getting Started | Envoy Proxy
-    type: Getting Started
+    type: GettingStarted
   - url: https://blog.envoyproxy.io/
     name: Blog | Envoy Proxy
     type: Blog
   - url: https://github.com/envoyproxy/envoy/releases
     name: Change Log | Envoy Proxy
-    type: Change Log
+    type: ChangeLog
   - url: https://github.com/envoyproxy
     name: GitHub Organization | Envoy Proxy
-    type: GitHub Organization
+    type: GitHubOrganization
   - url: https://github.com/envoyproxy/envoy
     name: GitHub Repository | Envoy Proxy
     type: GitHubRepository
@@ -236,7 +236,7 @@ common:
     type: Security
   - url: json-ld/envoy-proxy-context.jsonld
     name: JSON-LD Context | Envoy Proxy
-    type: JSON-LD
+    type: JSONLD
   - url: json-schema/envoy-proxy-cluster.json
     name: Cluster JSON Schema
     type: JSONSchema
