@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy Admin API — Certificates
+  description: 'Envoy Proxy Admin API — Certificates. 1 operations. Lead operation: Envoy Proxy List TLS Certificates. Self-contained
+    Naftiko capability covering one Envoy Proxy business surface.'
+  tags:
+  - Envoy Proxy
+  - Certificates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ENVOY_PROXY_API_KEY: ENVOY_PROXY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-certificates
+    baseUri: http://localhost:9901
+    description: Envoy Proxy Admin API — Certificates business capability. Self-contained, no shared references.
+    resources:
+    - name: certs
+      path: /certs
+      operations:
+      - name: getcerts
+        method: GET
+        description: Envoy Proxy List TLS Certificates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: admin-certificates-rest
+    port: 8080
+    description: REST adapter for Envoy Proxy Admin API — Certificates. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/certs
+      name: certs
+      description: REST surface for certs.
+      operations:
+      - method: GET
+        name: getcerts
+        description: Envoy Proxy List TLS Certificates
+        call: admin-certificates.getcerts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-certificates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Envoy Proxy Admin API — Certificates. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: envoy-proxy-list-tls-certificates
+      description: Envoy Proxy List TLS Certificates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-certificates.getcerts
+      outputParameters:
+      - type: object
+        mapping: $.

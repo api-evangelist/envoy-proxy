@@ -1,0 +1,77 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy xDS Discovery API — Route Discovery
+  description: 'Envoy Proxy xDS Discovery API — Route Discovery. 1 operations. Lead operation: Envoy Proxy Route Discovery
+    Service (RDS). Self-contained Naftiko capability covering one Envoy Proxy business surface.'
+  tags:
+  - Envoy Proxy
+  - Route Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ENVOY_PROXY_API_KEY: ENVOY_PROXY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: xds-discovery-route-discovery
+    baseUri: http://localhost:18000
+    description: Envoy Proxy xDS Discovery API — Route Discovery business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-discovery:routes
+      path: /v3/discovery:routes
+      operations:
+      - name: discoverroutes
+        method: POST
+        description: Envoy Proxy Route Discovery Service (RDS)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: xds-discovery-route-discovery-rest
+    port: 8080
+    description: REST adapter for Envoy Proxy xDS Discovery API — Route Discovery. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/discovery-routes
+      name: v3-discovery-routes
+      description: REST surface for v3-discovery:routes.
+      operations:
+      - method: POST
+        name: discoverroutes
+        description: Envoy Proxy Route Discovery Service (RDS)
+        call: xds-discovery-route-discovery.discoverroutes
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: xds-discovery-route-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Envoy Proxy xDS Discovery API — Route Discovery. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: envoy-proxy-route-discovery-service
+      description: Envoy Proxy Route Discovery Service (RDS)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: xds-discovery-route-discovery.discoverroutes
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

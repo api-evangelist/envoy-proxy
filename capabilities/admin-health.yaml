@@ -1,0 +1,131 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy Admin API — Health
+  description: 'Envoy Proxy Admin API — Health. 3 operations. Lead operation: Envoy Proxy Fail Health Checks. Self-contained
+    Naftiko capability covering one Envoy Proxy business surface.'
+  tags:
+  - Envoy Proxy
+  - Health
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ENVOY_PROXY_API_KEY: ENVOY_PROXY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-health
+    baseUri: http://localhost:9901
+    description: Envoy Proxy Admin API — Health business capability. Self-contained, no shared references.
+    resources:
+    - name: healthcheck-fail
+      path: /healthcheck/fail
+      operations:
+      - name: posthealthcheckfail
+        method: POST
+        description: Envoy Proxy Fail Health Checks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: healthcheck-ok
+      path: /healthcheck/ok
+      operations:
+      - name: posthealthcheckok
+        method: POST
+        description: Envoy Proxy Resume Health Checks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ready
+      path: /ready
+      operations:
+      - name: getready
+        method: GET
+        description: Envoy Proxy Check Server Readiness
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: admin-health-rest
+    port: 8080
+    description: REST adapter for Envoy Proxy Admin API — Health. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/healthcheck/fail
+      name: healthcheck-fail
+      description: REST surface for healthcheck-fail.
+      operations:
+      - method: POST
+        name: posthealthcheckfail
+        description: Envoy Proxy Fail Health Checks
+        call: admin-health.posthealthcheckfail
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/healthcheck/ok
+      name: healthcheck-ok
+      description: REST surface for healthcheck-ok.
+      operations:
+      - method: POST
+        name: posthealthcheckok
+        description: Envoy Proxy Resume Health Checks
+        call: admin-health.posthealthcheckok
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ready
+      name: ready
+      description: REST surface for ready.
+      operations:
+      - method: GET
+        name: getready
+        description: Envoy Proxy Check Server Readiness
+        call: admin-health.getready
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-health-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Envoy Proxy Admin API — Health. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: envoy-proxy-fail-health-checks
+      description: Envoy Proxy Fail Health Checks
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-health.posthealthcheckfail
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: envoy-proxy-resume-health-checks
+      description: Envoy Proxy Resume Health Checks
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-health.posthealthcheckok
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: envoy-proxy-check-server-readiness
+      description: Envoy Proxy Check Server Readiness
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-health.getready
+      outputParameters:
+      - type: object
+        mapping: $.

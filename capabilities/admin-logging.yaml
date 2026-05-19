@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy Admin API — Logging
+  description: 'Envoy Proxy Admin API — Logging. 1 operations. Lead operation: Envoy Proxy View or Modify Log Levels. Self-contained
+    Naftiko capability covering one Envoy Proxy business surface.'
+  tags:
+  - Envoy Proxy
+  - Logging
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ENVOY_PROXY_API_KEY: ENVOY_PROXY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-logging
+    baseUri: http://localhost:9901
+    description: Envoy Proxy Admin API — Logging business capability. Self-contained, no shared references.
+    resources:
+    - name: logging
+      path: /logging
+      operations:
+      - name: postlogging
+        method: POST
+        description: Envoy Proxy View or Modify Log Levels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: level
+          in: query
+          type: string
+          description: Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical,
+            and off.
+        - name: paths
+          in: query
+          type: string
+          description: Set a glob pattern for file path to filter the log output.
+  exposes:
+  - type: rest
+    namespace: admin-logging-rest
+    port: 8080
+    description: REST adapter for Envoy Proxy Admin API — Logging. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/logging
+      name: logging
+      description: REST surface for logging.
+      operations:
+      - method: POST
+        name: postlogging
+        description: Envoy Proxy View or Modify Log Levels
+        call: admin-logging.postlogging
+        with:
+          level: rest.level
+          paths: rest.paths
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-logging-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Envoy Proxy Admin API — Logging. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: envoy-proxy-view-modify-log
+      description: Envoy Proxy View or Modify Log Levels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-logging.postlogging
+      with:
+        level: tools.level
+        paths: tools.paths
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,77 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy xDS Discovery API — Listener Discovery
+  description: 'Envoy Proxy xDS Discovery API — Listener Discovery. 1 operations. Lead operation: Envoy Proxy Listener Discovery
+    Service (LDS). Self-contained Naftiko capability covering one Envoy Proxy business surface.'
+  tags:
+  - Envoy Proxy
+  - Listener Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ENVOY_PROXY_API_KEY: ENVOY_PROXY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: xds-discovery-listener-discovery
+    baseUri: http://localhost:18000
+    description: Envoy Proxy xDS Discovery API — Listener Discovery business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-discovery:listeners
+      path: /v3/discovery:listeners
+      operations:
+      - name: discoverlisteners
+        method: POST
+        description: Envoy Proxy Listener Discovery Service (LDS)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: xds-discovery-listener-discovery-rest
+    port: 8080
+    description: REST adapter for Envoy Proxy xDS Discovery API — Listener Discovery. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/discovery-listeners
+      name: v3-discovery-listeners
+      description: REST surface for v3-discovery:listeners.
+      operations:
+      - method: POST
+        name: discoverlisteners
+        description: Envoy Proxy Listener Discovery Service (LDS)
+        call: xds-discovery-listener-discovery.discoverlisteners
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: xds-discovery-listener-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Envoy Proxy xDS Discovery API — Listener Discovery. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: envoy-proxy-listener-discovery-service
+      description: Envoy Proxy Listener Discovery Service (LDS)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: xds-discovery-listener-discovery.discoverlisteners
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

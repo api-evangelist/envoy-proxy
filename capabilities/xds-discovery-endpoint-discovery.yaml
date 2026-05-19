@@ -1,0 +1,77 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Envoy Proxy xDS Discovery API — Endpoint Discovery
+  description: 'Envoy Proxy xDS Discovery API — Endpoint Discovery. 1 operations. Lead operation: Envoy Proxy Endpoint Discovery
+    Service (EDS). Self-contained Naftiko capability covering one Envoy Proxy business surface.'
+  tags:
+  - Envoy Proxy
+  - Endpoint Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ENVOY_PROXY_API_KEY: ENVOY_PROXY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: xds-discovery-endpoint-discovery
+    baseUri: http://localhost:18000
+    description: Envoy Proxy xDS Discovery API — Endpoint Discovery business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-discovery:endpoints
+      path: /v3/discovery:endpoints
+      operations:
+      - name: discoverendpoints
+        method: POST
+        description: Envoy Proxy Endpoint Discovery Service (EDS)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: xds-discovery-endpoint-discovery-rest
+    port: 8080
+    description: REST adapter for Envoy Proxy xDS Discovery API — Endpoint Discovery. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/discovery-endpoints
+      name: v3-discovery-endpoints
+      description: REST surface for v3-discovery:endpoints.
+      operations:
+      - method: POST
+        name: discoverendpoints
+        description: Envoy Proxy Endpoint Discovery Service (EDS)
+        call: xds-discovery-endpoint-discovery.discoverendpoints
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: xds-discovery-endpoint-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Envoy Proxy xDS Discovery API — Endpoint Discovery. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: envoy-proxy-endpoint-discovery-service
+      description: Envoy Proxy Endpoint Discovery Service (EDS)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: xds-discovery-endpoint-discovery.discoverendpoints
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
