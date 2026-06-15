@@ -1,0 +1,544 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Admin Home",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/"
+          },
+          "docs": "Returns the admin interface home page with links to all available endpoints."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy List Available Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/help"
+          },
+          "docs": "Returns a list of all available admin endpoints and their descriptions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Check Server Readiness",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/ready"
+          },
+          "docs": "Returns a 200 OK response if the server has been initialized and is ready to accept traffic. Returns 503 if the server is not yet initialized."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Fail Health Checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/healthcheck/fail"
+          },
+          "docs": "Causes the server to fail inbound health checks. This requires the use of the HTTP health check filter. Useful for draining a server prior to shutting it down or performing a full restart."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Resume Health Checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/healthcheck/ok"
+          },
+          "docs": "Negates the effect of POST /healthcheck/fail, causing the server to resume passing inbound health checks."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Server Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/server_info"
+          },
+          "docs": "Returns information about the running Envoy server including version, uptime, command line options, and hot restart version."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Memory Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/memory"
+          },
+          "docs": "Returns current memory allocation and heap usage in bytes, providing insights into memory consumption of the Envoy process."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Hot Restart Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/hot_restart_version"
+          },
+          "docs": "Returns the hot restart compatibility version. This can be matched against the output of the --hot-restart-version command line option to determine whether a new binary and the running binary are hot restart compatible."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Shutdown Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/quitquitquit"
+          },
+          "docs": "Cleanly exits the Envoy server process."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/stats",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for the statistics."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression to filter the returned statistics by name."
+              },
+              {
+                "name": "usedonly",
+                "value": "",
+                "type": "query",
+                "description": "Only return statistics that have been written to by Envoy."
+              },
+              {
+                "name": "histogram_buckets",
+                "value": "",
+                "type": "query",
+                "description": "Control histogram output mode."
+              }
+            ]
+          },
+          "docs": "Returns statistics that Envoy has collected, including counters, gauges, and histograms. Stats are provided as key-value pairs using a hierarchical dotted notation."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Statistics in Prometheus Format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/stats/prometheus",
+            "params": [
+              {
+                "name": "usedonly",
+                "value": "",
+                "type": "query",
+                "description": "Only return statistics that have been written to by Envoy."
+              },
+              {
+                "name": "text_readouts",
+                "value": "",
+                "type": "query",
+                "description": "Include text readout gauges in the output."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression to filter the returned statistics by name."
+              }
+            ]
+          },
+          "docs": "Returns statistics in Prometheus exposition format suitable for scraping by a Prometheus server."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Recent Stat Lookups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/stats/recentlookups"
+          },
+          "docs": "Returns a table of recently looked-up stat names."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Reset Counters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/reset_counters"
+          },
+          "docs": "Resets all counters to zero. This is useful when used in conjunction with GET /stats during debugging sessions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Cluster Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/clusters",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for cluster information."
+              }
+            ]
+          },
+          "docs": "Lists all configured cluster manager clusters including all discovered upstream hosts in each cluster along with per-host statistics. Provides information about the health status and connection metrics of upstream hosts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Dump Current Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/config_dump",
+            "params": [
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Filter the configuration dump to only return the specified resource type."
+              },
+              {
+                "name": "mask",
+                "value": "",
+                "type": "query",
+                "description": "Field mask to apply to the configuration dump, limiting which fields are returned."
+              },
+              {
+                "name": "name_regex",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression to filter the returned configuration by resource name."
+              },
+              {
+                "name": "include_eds",
+                "value": "",
+                "type": "query",
+                "description": "Include EDS configuration in the dump."
+              }
+            ]
+          },
+          "docs": "Returns the currently loaded configuration in JSON format, including bootstrap, clusters, endpoints, listeners, scoped routes, routes, secrets, and ECDS filter configurations."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Dump Initialization Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/init_dump",
+            "params": [
+              {
+                "name": "mask",
+                "value": "",
+                "type": "query",
+                "description": "Field mask to apply to the initialization dump."
+              }
+            ]
+          },
+          "docs": "Returns the unmodified configuration as it was loaded during the initialization process."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Listeners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy List Listeners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/listeners",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for listener information."
+              }
+            ]
+          },
+          "docs": "Lists all configured listeners, including their names and the addresses they are listening on."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Drain Listeners",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/drain_listeners",
+            "params": [
+              {
+                "name": "graceful",
+                "value": "",
+                "type": "query",
+                "description": "When set, listeners are drained gracefully with a period where both old and new listeners accept connections."
+              },
+              {
+                "name": "inboundonly",
+                "value": "",
+                "type": "query",
+                "description": "Drain only inbound listeners and leave outbound listeners intact."
+              }
+            ]
+          },
+          "docs": "Drains all listeners, causing them to stop accepting new connections. Existing connections are allowed to complete."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy List TLS Certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/certs"
+          },
+          "docs": "Lists all loaded TLS certificates including file name, serial number, subject alternate names, and days until expiration in JSON format."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Runtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Runtime Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/runtime"
+          },
+          "docs": "Returns the current runtime settings, including any overrides that have been applied via the admin interface or runtime layer configuration."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Modify Runtime Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/runtime_modify",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pairs to set as runtime overrides. Multiple parameters can be passed."
+              }
+            ]
+          },
+          "docs": "Adds or modifies runtime values as passed in query parameters. To delete a previously added override, use an empty value for the parameter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy View or Modify Log Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/logging",
+            "params": [
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical, and off."
+              },
+              {
+                "name": "paths",
+                "value": "",
+                "type": "query",
+                "description": "Set a glob pattern for file path to filter the log output."
+              }
+            ]
+          },
+          "docs": "Enable or change logging levels at runtime. Without query parameters, returns the current logging levels. With a query parameter, sets the logging level for a specific logger or all loggers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profiling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Enable or Disable CPU Profiler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/cpuprofiler",
+            "params": [
+              {
+                "name": "enable",
+                "value": "",
+                "type": "query",
+                "description": "Enable (y) or disable (n) the CPU profiler."
+              }
+            ]
+          },
+          "docs": "Enables or disables the CPU profiler. Requires compilation with gperftools. The output file can be then analyzed with pprof."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Enable or Disable Heap Profiler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/heapprofiler",
+            "params": [
+              {
+                "name": "enable",
+                "value": "",
+                "type": "query",
+                "description": "Enable (y) or disable (n) the heap profiler."
+              }
+            ]
+          },
+          "docs": "Enables or disables the heap profiler. Requires compilation with gperftools."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Debugging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Tap Traffic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/tap",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Installs a traffic tap configuration that allows inspecting traffic matching specific filter rules. The tap configuration is supplied in the request body."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Mutex Contention Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/contention"
+          },
+          "docs": "Dumps current Envoy mutex contention stats in JSON format, if mutex tracing is enabled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

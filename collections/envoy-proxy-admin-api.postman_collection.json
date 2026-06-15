@@ -1,0 +1,2269 @@
+{
+  "item": [
+    {
+      "id": "5fa665a0-0579-4276-8773-f85645523daf",
+      "name": "Certificates",
+      "description": {
+        "content": "TLS certificate information endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8cd0913-f5dd-47b4-8a0f-d5d25ae3a260",
+          "name": "Envoy Proxy List TLS Certificates",
+          "request": {
+            "name": "Envoy Proxy List TLS Certificates",
+            "description": {
+              "content": "Lists all loaded TLS certificates including file name, serial number, subject alternate names, and days until expiration in JSON format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aaf33879-b90c-41cc-acd0-11b3ee9c8317",
+              "name": "Successful response with certificate information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2fd73786-03e9-43e6-9697-385f68c2de33",
+      "name": "Clusters",
+      "description": {
+        "content": "Cluster management and information endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ea7ec37c-cb53-4964-80a3-e0f02b6086ca",
+          "name": "Envoy Proxy Get Cluster Information",
+          "request": {
+            "name": "Envoy Proxy Get Cluster Information",
+            "description": {
+              "content": "Lists all configured cluster manager clusters including all discovered upstream hosts in each cluster along with per-host statistics. Provides information about the health status and connection metrics of upstream hosts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for cluster information."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fac62601-3ebf-4536-92be-914e7027b478",
+              "name": "Successful response with cluster information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1c4ea13a-f5f2-485c-a94c-d0241bde4eeb",
+      "name": "Configuration",
+      "description": {
+        "content": "Configuration inspection and dump endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "856291a2-d177-47fb-80da-ae4b1f24c7e5",
+          "name": "Envoy Proxy Dump Current Configuration",
+          "request": {
+            "name": "Envoy Proxy Dump Current Configuration",
+            "description": {
+              "content": "Returns the currently loaded configuration in JSON format, including bootstrap, clusters, endpoints, listeners, scoped routes, routes, secrets, and ECDS filter configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config_dump"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource",
+                  "value": "<string>",
+                  "description": "Filter the configuration dump to only return the specified resource type."
+                },
+                {
+                  "disabled": false,
+                  "key": "mask",
+                  "value": "<string>",
+                  "description": "Field mask to apply to the configuration dump, limiting which fields are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "name_regex",
+                  "value": "<string>",
+                  "description": "Regular expression to filter the returned configuration by resource name."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_eds",
+                  "value": "<boolean>",
+                  "description": "Include EDS configuration in the dump."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28e2b933-00d1-488e-b029-965395f7dff1",
+              "name": "Successful response with configuration dump.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config_dump"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name_regex",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_eds",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef4e59c4-598e-4693-b50f-d9a826c071ff",
+          "name": "Envoy Proxy Dump Initialization Configuration",
+          "request": {
+            "name": "Envoy Proxy Dump Initialization Configuration",
+            "description": {
+              "content": "Returns the unmodified configuration as it was loaded during the initialization process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "init_dump"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "mask",
+                  "value": "<string>",
+                  "description": "Field mask to apply to the initialization dump."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d676f26d-41ff-493c-ba3d-ea483d858aec",
+              "name": "Successful response with initialization configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "init_dump"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d8746e88-338e-4a5b-8ce8-5539d626e99a",
+      "name": "Debugging",
+      "description": {
+        "content": "Debugging and traffic inspection endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d658499a-5426-4378-a4b5-cd3f8f34471d",
+          "name": "Envoy Proxy Tap Traffic",
+          "request": {
+            "name": "Envoy Proxy Tap Traffic",
+            "description": {
+              "content": "Installs a traffic tap configuration that allows inspecting traffic matching specific filter rules. The tap configuration is supplied in the request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tap"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf27a1f3-2a31-42a6-a32b-a834e0c63ad5",
+              "name": "Tap configuration installed and streaming tap results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "facbe01e-37c3-4271-b2dc-c8fc72ac8100",
+          "name": "Envoy Proxy Get Mutex Contention Stats",
+          "request": {
+            "name": "Envoy Proxy Get Mutex Contention Stats",
+            "description": {
+              "content": "Dumps current Envoy mutex contention stats in JSON format, if mutex tracing is enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contention"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68eb3c9e-ea39-4149-860c-0854e988da17",
+              "name": "Successful response with contention statistics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contention"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d4035d05-783c-4133-8ebe-b8cdca26c58b",
+      "name": "General",
+      "description": {
+        "content": "General admin interface endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "343a1876-f57d-4e6a-bf99-bc683072857b",
+          "name": "Envoy Proxy Admin Home",
+          "request": {
+            "name": "Envoy Proxy Admin Home",
+            "description": {
+              "content": "Returns the admin interface home page with links to all available endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a357126-2a9c-4a33-9880-3737d0d860f3",
+              "name": "Successful response with admin home page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/html"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/html"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec9b993a-13dd-4467-8999-5e154af71a69",
+          "name": "Envoy Proxy List Available Endpoints",
+          "request": {
+            "name": "Envoy Proxy List Available Endpoints",
+            "description": {
+              "content": "Returns a list of all available admin endpoints and their descriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "help"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cb1b40d-5998-4310-88c0-e73ba8392bd9",
+              "name": "Successful response with list of endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "help"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "864ec762-25c0-4a9d-acfb-1309fab368ea",
+      "name": "Health",
+      "description": {
+        "content": "Health check management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "761b09d8-0c63-4221-92f3-6d85ed518064",
+          "name": "Envoy Proxy Check Server Readiness",
+          "request": {
+            "name": "Envoy Proxy Check Server Readiness",
+            "description": {
+              "content": "Returns a 200 OK response if the server has been initialized and is ready to accept traffic. Returns 503 if the server is not yet initialized.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8f8c4a3-166c-404e-b94f-3e9c44da62ad",
+              "name": "Server is ready and initialized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f7cd224-f51a-49b3-a3bc-67082f6f8954",
+              "name": "Server is not yet initialized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29f8a2ad-f6fc-4c77-9324-be39eb49372f",
+          "name": "Envoy Proxy Fail Health Checks",
+          "request": {
+            "name": "Envoy Proxy Fail Health Checks",
+            "description": {
+              "content": "Causes the server to fail inbound health checks. This requires the use of the HTTP health check filter. Useful for draining a server prior to shutting it down or performing a full restart.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthcheck",
+                "fail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0a144c55-fe6d-493b-b893-62f89a1e6d8c",
+              "name": "Health check failure enabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f48cbeb3-f34e-4ce4-8c33-1f292ea6d9f7",
+          "name": "Envoy Proxy Resume Health Checks",
+          "request": {
+            "name": "Envoy Proxy Resume Health Checks",
+            "description": {
+              "content": "Negates the effect of POST /healthcheck/fail, causing the server to resume passing inbound health checks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthcheck",
+                "ok"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d61695c3-2fed-4c7e-b5cf-60a6f1214c06",
+              "name": "Health check restored to passing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck",
+                    "ok"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0073f41c-6316-44e0-9ed2-00e188aea3d8",
+      "name": "Listeners",
+      "description": {
+        "content": "Listener management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6f1c222-a4b6-4930-886f-e67ac3970e3f",
+          "name": "Envoy Proxy List Listeners",
+          "request": {
+            "name": "Envoy Proxy List Listeners",
+            "description": {
+              "content": "Lists all configured listeners, including their names and the addresses they are listening on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listeners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for listener information."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce460b9f-bec1-46d6-b07a-83db830a4614",
+              "name": "Successful response with listener information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listeners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37a691f3-0701-4876-8730-f93da0ac87ff",
+          "name": "Envoy Proxy Drain Listeners",
+          "request": {
+            "name": "Envoy Proxy Drain Listeners",
+            "description": {
+              "content": "Drains all listeners, causing them to stop accepting new connections. Existing connections are allowed to complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drain_listeners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "graceful",
+                  "value": "<boolean>",
+                  "description": "When set, listeners are drained gracefully with a period where both old and new listeners accept connections."
+                },
+                {
+                  "disabled": false,
+                  "key": "inboundonly",
+                  "value": "<boolean>",
+                  "description": "Drain only inbound listeners and leave outbound listeners intact."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf3ed9ac-b720-4215-b2c6-d9049ae5415c",
+              "name": "Listeners draining initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drain_listeners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "graceful",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "inboundonly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9a7b2a57-638a-49b1-8b3f-e41757341556",
+      "name": "Logging",
+      "description": {
+        "content": "Logging level management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d624d98-54c0-4a1b-ac3b-6ee18ee6b18a",
+          "name": "Envoy Proxy View or Modify Log Levels",
+          "request": {
+            "name": "Envoy Proxy View or Modify Log Levels",
+            "description": {
+              "content": "Enable or change logging levels at runtime. Without query parameters, returns the current logging levels. With a query parameter, sets the logging level for a specific logger or all loggers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logging"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "level",
+                  "value": "<string>",
+                  "description": "Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical, and off."
+                },
+                {
+                  "disabled": false,
+                  "key": "paths",
+                  "value": "<string>",
+                  "description": "Set a glob pattern for file path to filter the log output."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e9c5fe1a-3e43-417b-bdba-0e8e95b33a77",
+              "name": "Successful response with logging configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logging"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "level",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paths",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "09237e12-5dcc-484b-a94a-7a94a57813ae",
+      "name": "Profiling",
+      "description": {
+        "content": "CPU and heap profiling endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a2721a3-2ed4-4fd1-b867-0efa2d2cab66",
+          "name": "Envoy Proxy Enable or Disable CPU Profiler",
+          "request": {
+            "name": "Envoy Proxy Enable or Disable CPU Profiler",
+            "description": {
+              "content": "Enables or disables the CPU profiler. Requires compilation with gperftools. The output file can be then analyzed with pprof.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cpuprofiler"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "enable",
+                  "value": "<string>",
+                  "description": "Enable (y) or disable (n) the CPU profiler."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39f5090c-12b5-497c-a268-ebc624c92af8",
+              "name": "CPU profiler state changed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpuprofiler"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enable",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78463692-3197-4eb7-b49a-35badf9892f6",
+          "name": "Envoy Proxy Enable or Disable Heap Profiler",
+          "request": {
+            "name": "Envoy Proxy Enable or Disable Heap Profiler",
+            "description": {
+              "content": "Enables or disables the heap profiler. Requires compilation with gperftools.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "heapprofiler"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "enable",
+                  "value": "<string>",
+                  "description": "Enable (y) or disable (n) the heap profiler."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad5d1ab9-dbbe-4f6a-a0ed-ed299187e24f",
+              "name": "Heap profiler state changed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "heapprofiler"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enable",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9b2a6983-85bf-46f9-87f5-29a9037cc56d",
+      "name": "Runtime",
+      "description": {
+        "content": "Runtime configuration management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ecc1e5b6-54f5-4a72-a569-a4a30e2133a1",
+          "name": "Envoy Proxy Get Runtime Settings",
+          "request": {
+            "name": "Envoy Proxy Get Runtime Settings",
+            "description": {
+              "content": "Returns the current runtime settings, including any overrides that have been applied via the admin interface or runtime layer configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee7af7e1-f02d-440e-ba79-2510f2bf6c06",
+              "name": "Successful response with runtime settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entries\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fb0cc0c-7ab6-4ab2-81ac-7498ad9209a2",
+          "name": "Envoy Proxy Modify Runtime Settings",
+          "request": {
+            "name": "Envoy Proxy Modify Runtime Settings",
+            "description": {
+              "content": "Adds or modifies runtime values as passed in query parameters. To delete a previously added override, use an empty value for the parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runtime_modify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "Key-value pairs to set as runtime overrides. Multiple parameters can be passed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2ddc58b-2f5f-458a-9d82-93216d1634c8",
+              "name": "Runtime values modified successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runtime_modify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "81ef18bf-704f-48fa-9012-ce76dd314216",
+      "name": "Server",
+      "description": {
+        "content": "Server information and lifecycle endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0c42caa-e011-44f3-a237-edb75a86d5f1",
+          "name": "Envoy Proxy Get Server Information",
+          "request": {
+            "name": "Envoy Proxy Get Server Information",
+            "description": {
+              "content": "Returns information about the running Envoy server including version, uptime, command line options, and hot restart version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "server_info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "871fc879-35e8-40c4-b0dd-4e9a2eccbf0c",
+              "name": "Successful response with server information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "server_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"string\",\n  \"state\": \"string\",\n  \"uptime_current_epoch\": \"string\",\n  \"uptime_all_epochs\": \"string\",\n  \"hot_restart_version\": \"string\",\n  \"command_line_options\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c641da4d-5c78-49f2-9b34-285e08ff11fd",
+          "name": "Envoy Proxy Get Memory Usage",
+          "request": {
+            "name": "Envoy Proxy Get Memory Usage",
+            "description": {
+              "content": "Returns current memory allocation and heap usage in bytes, providing insights into memory consumption of the Envoy process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "memory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9a825c4-5424-4fee-8c88-789d1c55ee7f",
+              "name": "Successful response with memory information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "memory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allocated\": \"string\",\n  \"heap_size\": \"string\",\n  \"pageheap_unmapped\": \"string\",\n  \"pageheap_free\": \"string\",\n  \"total_thread_cache\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd3797ea-7e38-4b09-b32c-8c9e4bf08e40",
+          "name": "Envoy Proxy Get Hot Restart Version",
+          "request": {
+            "name": "Envoy Proxy Get Hot Restart Version",
+            "description": {
+              "content": "Returns the hot restart compatibility version. This can be matched against the output of the --hot-restart-version command line option to determine whether a new binary and the running binary are hot restart compatible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hot_restart_version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f08b6a9e-ea5c-444d-b305-3d4c9d496f3a",
+              "name": "Successful response with hot restart version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hot_restart_version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f226e5ca-91af-4ca7-840d-37c15134ab32",
+          "name": "Envoy Proxy Shutdown Server",
+          "request": {
+            "name": "Envoy Proxy Shutdown Server",
+            "description": {
+              "content": "Cleanly exits the Envoy server process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quitquitquit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3634a0dc-e928-4bfc-8390-b753dfb3a0c6",
+              "name": "Server shutdown initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quitquitquit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ad7cb409-bfa0-46bc-a65f-6b69831b8df7",
+      "name": "Statistics",
+      "description": {
+        "content": "Statistics and metrics endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c3b0368c-2fe1-491b-9ab3-57e8da02445d",
+          "name": "Envoy Proxy Get Statistics",
+          "request": {
+            "name": "Envoy Proxy Get Statistics",
+            "description": {
+              "content": "Returns statistics that Envoy has collected, including counters, gauges, and histograms. Stats are provided as key-value pairs using a hierarchical dotted notation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for the statistics."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Regular expression to filter the returned statistics by name."
+                },
+                {
+                  "disabled": false,
+                  "key": "usedonly",
+                  "value": "<boolean>",
+                  "description": "Only return statistics that have been written to by Envoy."
+                },
+                {
+                  "disabled": false,
+                  "key": "histogram_buckets",
+                  "value": "<string>",
+                  "description": "Control histogram output mode."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "085c1976-f31b-4357-865a-00de6b1f6d2d",
+              "name": "Successful response with statistics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usedonly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "histogram_buckets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97412623-55a9-4ebc-bfdc-cffc258fabac",
+          "name": "Envoy Proxy Get Statistics in Prometheus Format",
+          "request": {
+            "name": "Envoy Proxy Get Statistics in Prometheus Format",
+            "description": {
+              "content": "Returns statistics in Prometheus exposition format suitable for scraping by a Prometheus server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "prometheus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "usedonly",
+                  "value": "<boolean>",
+                  "description": "Only return statistics that have been written to by Envoy."
+                },
+                {
+                  "disabled": false,
+                  "key": "text_readouts",
+                  "value": "<boolean>",
+                  "description": "Include text readout gauges in the output."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Regular expression to filter the returned statistics by name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edb72f9c-e792-4a2e-bf20-5e1edfdd477f",
+              "name": "Successful response with Prometheus-formatted statistics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "prometheus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "usedonly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "text_readouts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65e7b4b4-5c77-4e4f-88bf-76d67336e784",
+          "name": "Envoy Proxy Get Recent Stat Lookups",
+          "request": {
+            "name": "Envoy Proxy Get Recent Stat Lookups",
+            "description": {
+              "content": "Returns a table of recently looked-up stat names.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "recentlookups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "536e06ff-d1c9-41d9-be65-dc578ba4037c",
+              "name": "Successful response with recent stat lookups.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "recentlookups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49d8e729-c10a-4324-a355-07fb8d7e7ff0",
+          "name": "Envoy Proxy Reset Counters",
+          "request": {
+            "name": "Envoy Proxy Reset Counters",
+            "description": {
+              "content": "Resets all counters to zero. This is useful when used in conjunction with GET /stats during debugging sessions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reset_counters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "115366fe-8ad3-4b82-b13f-3e53fcef3365",
+              "name": "Counters reset successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reset_counters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c0ec48f5-28f9-4d6e-bc79-3680021fffd8",
+    "name": "Envoy Proxy Admin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

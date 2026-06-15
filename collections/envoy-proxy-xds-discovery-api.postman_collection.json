@@ -1,0 +1,645 @@
+{
+  "item": [
+    {
+      "id": "0ea6dd7d-fb3e-4e37-8e78-6138c524cba9",
+      "name": "Cluster Discovery",
+      "description": {
+        "content": "Cluster Discovery Service (CDS) endpoints for dynamically discovering upstream clusters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16b99b6c-5024-411a-acb7-1da7d9ceb3d9",
+          "name": "Envoy Proxy Cluster Discovery Service (CDS)",
+          "request": {
+            "name": "Envoy Proxy Cluster Discovery Service (CDS)",
+            "description": {
+              "content": "Fetches cluster configuration from the management server. The Cluster Discovery Service (CDS) returns a set of dynamically discovered upstream clusters that Envoy should route traffic to. Each cluster defines how Envoy connects to a group of upstream hosts including load balancing policy, connection limits, circuit breaking thresholds, and health checking configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b1e31f00-6122-40e0-a753-437f4c55635c",
+              "name": "Successful cluster discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5598,\n      \"key_2\": 7248.559017202853\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 4419\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4fc260ab-4e27-42b6-830f-4350ddf4da41",
+      "name": "Endpoint Discovery",
+      "description": {
+        "content": "Endpoint Discovery Service (EDS) endpoints for dynamically discovering cluster endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b70889ab-f0ac-427e-b725-52163c0d1ad9",
+          "name": "Envoy Proxy Endpoint Discovery Service (EDS)",
+          "request": {
+            "name": "Envoy Proxy Endpoint Discovery Service (EDS)",
+            "description": {
+              "content": "Fetches endpoint configuration from the management server. The Endpoint Discovery Service (EDS) returns a set of endpoint assignments for each cluster, specifying the network addresses of upstream hosts along with load balancing weights, health status, and locality information used for zone-aware routing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee85c602-8bab-4cdf-82d0-ddb330b76536",
+              "name": "Successful endpoint discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5598,\n      \"key_2\": 7248.559017202853\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 4419\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6447a5ed-5694-4a1c-b3f9-3a20b133eb4b",
+      "name": "Listener Discovery",
+      "description": {
+        "content": "Listener Discovery Service (LDS) endpoints for dynamically discovering listeners.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3501f606-c17c-42e8-a1e0-988245941fa7",
+          "name": "Envoy Proxy Listener Discovery Service (LDS)",
+          "request": {
+            "name": "Envoy Proxy Listener Discovery Service (LDS)",
+            "description": {
+              "content": "Fetches listener configuration from the management server. The Listener Discovery Service (LDS) returns a set of listeners that Envoy should configure to accept downstream connections. Each listener defines the address and port to bind to, filter chains for processing connections, and associated TLS context for secure connections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:listeners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0ddc8065-eca9-4da6-abb3-1ea69b9b0a85",
+              "name": "Successful listener discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:listeners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5598,\n      \"key_2\": 7248.559017202853\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 4419\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "62925b5e-1644-4473-839a-e40334f97a6d",
+      "name": "Route Discovery",
+      "description": {
+        "content": "Route Discovery Service (RDS) endpoints for dynamically discovering route configurations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "753a718d-783d-4958-bd27-3954a1951206",
+          "name": "Envoy Proxy Route Discovery Service (RDS)",
+          "request": {
+            "name": "Envoy Proxy Route Discovery Service (RDS)",
+            "description": {
+              "content": "Fetches route configuration from the management server. The Route Discovery Service (RDS) returns route configuration that maps incoming requests to specific upstream clusters based on request attributes such as path, headers, and query parameters. Route configurations define virtual hosts, route matching rules, and traffic management policies including retries, timeouts, and rate limiting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a62a34a8-4c02-4c12-9b0f-9d9c675161d9",
+              "name": "Successful route discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5598,\n      \"key_2\": 7248.559017202853\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 4419\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "faf50b28-838b-440a-a02b-7be2ee38971f",
+      "name": "Runtime Discovery",
+      "description": {
+        "content": "Runtime Discovery Service (RTDS) endpoints for dynamically discovering runtime configuration layers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "989c9a22-ac49-4faf-9172-ce2b55f20567",
+          "name": "Envoy Proxy Runtime Discovery Service (RTDS)",
+          "request": {
+            "name": "Envoy Proxy Runtime Discovery Service (RTDS)",
+            "description": {
+              "content": "Fetches runtime configuration layers from the management server. The Runtime Discovery Service (RTDS) allows dynamic updates to runtime feature flags and settings without requiring Envoy restarts or redeployments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:runtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d529808-01be-4777-8134-f6d20bc300cd",
+              "name": "Successful runtime discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:runtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5598,\n      \"key_2\": 7248.559017202853\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 4419\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "60f06066-032e-4834-946b-019b446c8f03",
+      "name": "Secret Discovery",
+      "description": {
+        "content": "Secret Discovery Service (SDS) endpoints for dynamically discovering TLS certificates and keys.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d06805b0-09f8-4e05-95a7-c2ab78b6a52a",
+          "name": "Envoy Proxy Secret Discovery Service (SDS)",
+          "request": {
+            "name": "Envoy Proxy Secret Discovery Service (SDS)",
+            "description": {
+              "content": "Fetches secret configuration from the management server. The Secret Discovery Service (SDS) returns TLS certificates, private keys, and trusted CA certificates that Envoy uses for TLS handshakes. SDS enables dynamic rotation of certificates without requiring Envoy restarts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:secrets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "328fc4c4-a52f-43c1-ac2f-c300af54bc3a",
+              "name": "Successful secret discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:secrets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5598,\n      \"key_2\": 7248.559017202853\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 4419\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18000",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "118fd27b-db99-4914-96ee-1a59ae1fcff7",
+    "name": "Envoy Proxy xDS Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy xDS (x Discovery Service) REST API provides a set of endpoints for dynamically discovering and configuring Envoy proxy resources. The xDS protocol is the foundation of Envoy's dynamic configuration, enabling a control plane to push configuration updates for clusters (CDS), listeners (LDS), routes (RDS), and endpoints (EDS) to Envoy instances without requiring restarts. This OpenAPI specification covers the REST/JSON variant of the xDS API, which uses HTTP endpoints for resource discovery via the Aggregated Discovery Service (ADS) pattern or individual discovery service endpoints.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

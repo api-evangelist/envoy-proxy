@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy xDS Discovery API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Cluster Discovery Service (CDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18000/v3/discovery:clusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches cluster configuration from the management server. The Cluster Discovery Service (CDS) returns a set of dynamically discovered upstream clusters that Envoy should route traffic to. Each cluster defines how Envoy connects to a group of upstream hosts including load balancing policy, connection limits, circuit breaking thresholds, and health checking configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Listener Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Listener Discovery Service (LDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18000/v3/discovery:listeners",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches listener configuration from the management server. The Listener Discovery Service (LDS) returns a set of listeners that Envoy should configure to accept downstream connections. Each listener defines the address and port to bind to, filter chains for processing connections, and associated TLS context for secure connections."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Route Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Route Discovery Service (RDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18000/v3/discovery:routes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches route configuration from the management server. The Route Discovery Service (RDS) returns route configuration that maps incoming requests to specific upstream clusters based on request attributes such as path, headers, and query parameters. Route configurations define virtual hosts, route matching rules, and traffic management policies including retries, timeouts, and rate limiting."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Endpoint Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Endpoint Discovery Service (EDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18000/v3/discovery:endpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches endpoint configuration from the management server. The Endpoint Discovery Service (EDS) returns a set of endpoint assignments for each cluster, specifying the network addresses of upstream hosts along with load balancing weights, health status, and locality information used for zone-aware routing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Secret Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Secret Discovery Service (SDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18000/v3/discovery:secrets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches secret configuration from the management server. The Secret Discovery Service (SDS) returns TLS certificates, private keys, and trusted CA certificates that Envoy uses for TLS handshakes. SDS enables dynamic rotation of certificates without requiring Envoy restarts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Runtime Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Runtime Discovery Service (RTDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18000/v3/discovery:runtime",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches runtime configuration layers from the management server. The Runtime Discovery Service (RTDS) allows dynamic updates to runtime feature flags and settings without requiring Envoy restarts or redeployments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
