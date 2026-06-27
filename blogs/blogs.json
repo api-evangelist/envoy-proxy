@@ -2,20 +2,11 @@
   "repo": "envoy-proxy",
   "feeds": [
     {
-      "source": "https://blog.envoyproxy.io/feed/",
-      "feed_url": "https://blog.envoyproxy.io/feed/",
-      "title": "",
-      "saved": 0,
-      "method": "feed"
-    },
-    {
       "source": "https://blog.envoyproxy.io/",
-      "feed_url": "https://blog.envoyproxy.io/feed",
-      "title": "",
       "saved": 0,
-      "method": "discovered"
+      "error": "fetch failed (no output); Medium-hosted blog unreachable"
     }
   ],
   "post_count": 13,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:40:02Z"
 }
