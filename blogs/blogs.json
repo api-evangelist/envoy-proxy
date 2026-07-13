@@ -3,10 +3,9 @@
   "feeds": [
     {
       "source": "https://blog.envoyproxy.io/",
-      "saved": 0,
-      "error": "fetch failed (no output); Medium-hosted blog unreachable"
+      "error": "URLError"
     }
   ],
   "post_count": 13,
-  "fetched": "2026-06-27T12:40:02Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }
