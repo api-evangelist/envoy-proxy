@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Configuration API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Configuration
+  description: Configuration inspection and dump endpoints.
+paths:
+  /config_dump:
+    get:
+      operationId: getConfigDump
+      summary: Envoy Proxy Dump Current Configuration
+      description: Returns the currently loaded configuration in JSON format, including bootstrap, clusters, endpoints, listeners, scoped routes, routes, secrets, and ECDS filter configurations.
+      parameters:
+      - name: resource
+        in: query
+        description: Filter the configuration dump to only return the specified resource type.
+        schema:
+          type: string
+      - name: mask
+        in: query
+        description: Field mask to apply to the configuration dump, limiting which fields are returned.
+        schema:
+          type: string
+      - name: name_regex
+        in: query
+        description: Regular expression to filter the returned configuration by resource name.
+        schema:
+          type: string
+      - name: include_eds
+        in: query
+        description: Include EDS configuration in the dump.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successful response with configuration dump.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  configs:
+                    type: array
+                    items:
+                      type: object
+      tags:
+      - Configuration
+  /init_dump:
+    get:
+      operationId: getInitDump
+      summary: Envoy Proxy Dump Initialization Configuration
+      description: Returns the unmodified configuration as it was loaded during the initialization process.
+      parameters:
+      - name: mask
+        in: query
+        description: Field mask to apply to the initialization dump.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with initialization configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Configuration

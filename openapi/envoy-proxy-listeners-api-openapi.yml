@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Listeners API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Listeners
+  description: Listener management endpoints.
+paths:
+  /listeners:
+    get:
+      operationId: getListeners
+      summary: Envoy Proxy List Listeners
+      description: Lists all configured listeners, including their names and the addresses they are listening on.
+      parameters:
+      - name: format
+        in: query
+        description: Output format for listener information.
+        schema:
+          type: string
+          enum:
+          - json
+      responses:
+        '200':
+          description: Successful response with listener information.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Listeners
+  /drain_listeners:
+    post:
+      operationId: postDrainListeners
+      summary: Envoy Proxy Drain Listeners
+      description: Drains all listeners, causing them to stop accepting new connections. Existing connections are allowed to complete.
+      parameters:
+      - name: graceful
+        in: query
+        description: When set, listeners are drained gracefully with a period where both old and new listeners accept connections.
+        schema:
+          type: boolean
+      - name: inboundonly
+        in: query
+        description: Drain only inbound listeners and leave outbound listeners intact.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Listeners draining initiated.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Listeners

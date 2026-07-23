@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Profiling API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Profiling
+  description: CPU and heap profiling endpoints.
+paths:
+  /cpuprofiler:
+    post:
+      operationId: postCpuProfiler
+      summary: Envoy Proxy Enable or Disable CPU Profiler
+      description: Enables or disables the CPU profiler. Requires compilation with gperftools. The output file can be then analyzed with pprof.
+      parameters:
+      - name: enable
+        in: query
+        description: Enable (y) or disable (n) the CPU profiler.
+        schema:
+          type: string
+          enum:
+          - y
+          - n
+      responses:
+        '200':
+          description: CPU profiler state changed.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Profiling
+  /heapprofiler:
+    post:
+      operationId: postHeapProfiler
+      summary: Envoy Proxy Enable or Disable Heap Profiler
+      description: Enables or disables the heap profiler. Requires compilation with gperftools.
+      parameters:
+      - name: enable
+        in: query
+        description: Enable (y) or disable (n) the heap profiler.
+        schema:
+          type: string
+          enum:
+          - y
+          - n
+      responses:
+        '200':
+          description: Heap profiler state changed.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Profiling

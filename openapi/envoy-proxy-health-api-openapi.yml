@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Health API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Health
+  description: Health check management endpoints.
+paths:
+  /ready:
+    get:
+      operationId: getReady
+      summary: Envoy Proxy Check Server Readiness
+      description: Returns a 200 OK response if the server has been initialized and is ready to accept traffic. Returns 503 if the server is not yet initialized.
+      responses:
+        '200':
+          description: Server is ready and initialized.
+          content:
+            text/plain:
+              schema:
+                type: string
+        '503':
+          description: Server is not yet initialized.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Health
+  /healthcheck/fail:
+    post:
+      operationId: postHealthcheckFail
+      summary: Envoy Proxy Fail Health Checks
+      description: Causes the server to fail inbound health checks. This requires the use of the HTTP health check filter. Useful for draining a server prior to shutting it down or performing a full restart.
+      responses:
+        '200':
+          description: Health check failure enabled.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Health
+  /healthcheck/ok:
+    post:
+      operationId: postHealthcheckOk
+      summary: Envoy Proxy Resume Health Checks
+      description: Negates the effect of POST /healthcheck/fail, causing the server to resume passing inbound health checks.
+      responses:
+        '200':
+          description: Health check restored to passing.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Health

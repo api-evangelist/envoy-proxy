@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates General API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: General
+  description: General admin interface endpoints.
+paths:
+  /:
+    get:
+      operationId: getAdminHome
+      summary: Envoy Proxy Admin Home
+      description: Returns the admin interface home page with links to all available endpoints.
+      responses:
+        '200':
+          description: Successful response with admin home page.
+          content:
+            text/html:
+              schema:
+                type: string
+      tags:
+      - General
+  /help:
+    get:
+      operationId: getHelp
+      summary: Envoy Proxy List Available Endpoints
+      description: Returns a list of all available admin endpoints and their descriptions.
+      responses:
+        '200':
+          description: Successful response with list of endpoints.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - General

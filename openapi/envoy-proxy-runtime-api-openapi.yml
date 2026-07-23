@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Runtime API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Runtime
+  description: Runtime configuration management endpoints.
+paths:
+  /runtime:
+    get:
+      operationId: getRuntime
+      summary: Envoy Proxy Get Runtime Settings
+      description: Returns the current runtime settings, including any overrides that have been applied via the admin interface or runtime layer configuration.
+      responses:
+        '200':
+          description: Successful response with runtime settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  layers:
+                    type: array
+                    items:
+                      type: object
+                  entries:
+                    type: object
+      tags:
+      - Runtime
+  /runtime_modify:
+    post:
+      operationId: postRuntimeModify
+      summary: Envoy Proxy Modify Runtime Settings
+      description: Adds or modifies runtime values as passed in query parameters. To delete a previously added override, use an empty value for the parameter.
+      parameters:
+      - name: key
+        in: query
+        description: Key-value pairs to set as runtime overrides. Multiple parameters can be passed.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Runtime values modified successfully.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Runtime

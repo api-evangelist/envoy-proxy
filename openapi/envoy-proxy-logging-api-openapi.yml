@@ -1,0 +1,51 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Logging API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Logging
+  description: Logging level management endpoints.
+paths:
+  /logging:
+    post:
+      operationId: postLogging
+      summary: Envoy Proxy View or Modify Log Levels
+      description: Enable or change logging levels at runtime. Without query parameters, returns the current logging levels. With a query parameter, sets the logging level for a specific logger or all loggers.
+      parameters:
+      - name: level
+        in: query
+        description: Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical, and off.
+        schema:
+          type: string
+          enum:
+          - trace
+          - debug
+          - info
+          - warning
+          - error
+          - critical
+          - 'off'
+      - name: paths
+        in: query
+        description: Set a glob pattern for file path to filter the log output.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with logging configuration.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Logging

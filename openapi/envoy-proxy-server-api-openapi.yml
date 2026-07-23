@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Server API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Server
+  description: Server information and lifecycle endpoints.
+paths:
+  /server_info:
+    get:
+      operationId: getServerInfo
+      summary: Envoy Proxy Get Server Information
+      description: Returns information about the running Envoy server including version, uptime, command line options, and hot restart version.
+      responses:
+        '200':
+          description: Successful response with server information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: Envoy version string.
+                  state:
+                    type: string
+                    description: Current server state.
+                  uptime_current_epoch:
+                    type: string
+                    description: Uptime of the current epoch.
+                  uptime_all_epochs:
+                    type: string
+                    description: Uptime across all epochs.
+                  hot_restart_version:
+                    type: string
+                    description: Hot restart compatibility version.
+                  command_line_options:
+                    type: object
+                    description: Command line options used to start Envoy.
+      tags:
+      - Server
+  /memory:
+    get:
+      operationId: getMemory
+      summary: Envoy Proxy Get Memory Usage
+      description: Returns current memory allocation and heap usage in bytes, providing insights into memory consumption of the Envoy process.
+      responses:
+        '200':
+          description: Successful response with memory information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allocated:
+                    type: string
+                    description: Currently allocated memory in bytes.
+                  heap_size:
+                    type: string
+                    description: Current heap size in bytes.
+                  pageheap_unmapped:
+                    type: string
+                    description: Unmapped page heap bytes.
+                  pageheap_free:
+                    type: string
+                    description: Free page heap bytes.
+                  total_thread_cache:
+                    type: string
+                    description: Total thread cache bytes.
+      tags:
+      - Server
+  /hot_restart_version:
+    get:
+      operationId: getHotRestartVersion
+      summary: Envoy Proxy Get Hot Restart Version
+      description: Returns the hot restart compatibility version. This can be matched against the output of the --hot-restart-version command line option to determine whether a new binary and the running binary are hot restart compatible.
+      responses:
+        '200':
+          description: Successful response with hot restart version.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Server
+  /quitquitquit:
+    post:
+      operationId: postQuitQuitQuit
+      summary: Envoy Proxy Shutdown Server
+      description: Cleanly exits the Envoy server process.
+      responses:
+        '200':
+          description: Server shutdown initiated.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Server

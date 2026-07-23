@@ -1,0 +1,122 @@
+openapi: 3.1.0
+info:
+  title: Envoy Proxy Admin Certificates Statistics API
+  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
+  version: 1.38.0
+  contact:
+    name: Envoy Proxy
+    url: https://www.envoyproxy.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:9901
+  description: Default Envoy Admin Interface
+tags:
+- name: Statistics
+  description: Statistics and metrics endpoints.
+paths:
+  /stats:
+    get:
+      operationId: getStats
+      summary: Envoy Proxy Get Statistics
+      description: Returns statistics that Envoy has collected, including counters, gauges, and histograms. Stats are provided as key-value pairs using a hierarchical dotted notation.
+      parameters:
+      - name: format
+        in: query
+        description: Output format for the statistics.
+        schema:
+          type: string
+          enum:
+          - json
+          - prometheus
+          - text
+      - name: filter
+        in: query
+        description: Regular expression to filter the returned statistics by name.
+        schema:
+          type: string
+      - name: usedonly
+        in: query
+        description: Only return statistics that have been written to by Envoy.
+        schema:
+          type: boolean
+      - name: histogram_buckets
+        in: query
+        description: Control histogram output mode.
+        schema:
+          type: string
+          enum:
+          - cumulative
+          - disjoint
+          - none
+      responses:
+        '200':
+          description: Successful response with statistics.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Statistics
+  /stats/prometheus:
+    get:
+      operationId: getStatsPrometheus
+      summary: Envoy Proxy Get Statistics in Prometheus Format
+      description: Returns statistics in Prometheus exposition format suitable for scraping by a Prometheus server.
+      parameters:
+      - name: usedonly
+        in: query
+        description: Only return statistics that have been written to by Envoy.
+        schema:
+          type: boolean
+      - name: text_readouts
+        in: query
+        description: Include text readout gauges in the output.
+        schema:
+          type: boolean
+      - name: filter
+        in: query
+        description: Regular expression to filter the returned statistics by name.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with Prometheus-formatted statistics.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Statistics
+  /stats/recentlookups:
+    get:
+      operationId: getStatsRecentLookups
+      summary: Envoy Proxy Get Recent Stat Lookups
+      description: Returns a table of recently looked-up stat names.
+      responses:
+        '200':
+          description: Successful response with recent stat lookups.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Statistics
+  /reset_counters:
+    post:
+      operationId: postResetCounters
+      summary: Envoy Proxy Reset Counters
+      description: Resets all counters to zero. This is useful when used in conjunction with GET /stats during debugging sessions.
+      responses:
+        '200':
+          description: Counters reset successfully.
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Statistics
