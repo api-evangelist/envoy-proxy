@@ -519,6 +519,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/envoy-proxy.png
 access: 3rd-Party
 common:
+  - type: CodeOfConduct
+    url: https://github.com/envoyproxy/envoy/blob/main/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/envoyproxy/envoy/blob/main/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/envoyproxy/envoy/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/envoy-proxy-agentic-access.yml
   - type: DomainSecurity
