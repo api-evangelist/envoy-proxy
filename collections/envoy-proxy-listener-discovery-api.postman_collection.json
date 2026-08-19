@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "6543ef73-9293-4626-9764-1f0440b1837f",
+      "name": "Listener Discovery",
+      "description": {
+        "content": "Listener Discovery Service (LDS) endpoints for dynamically discovering listeners.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6c63c8ee-71ed-4613-865e-d561f0be219d",
+          "name": "Envoy Proxy Listener Discovery Service (LDS)",
+          "request": {
+            "name": "Envoy Proxy Listener Discovery Service (LDS)",
+            "description": {
+              "content": "Fetches listener configuration from the management server. The Listener Discovery Service (LDS) returns a set of listeners that Envoy should configure to accept downstream connections. Each listener defines the address and port to bind to, filter chains for processing connections, and associated TLS context for secure connections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:listeners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": 2121,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4eeff349-9538-4d2a-9578-e6da54fa1dae",
+              "name": "Successful listener discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:listeners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": 9293.378405709209,\n      \"key_1\": 7307\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 3899,\n      \"key_1\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": 2441,\n      \"key_2\": 5917\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "06a9c37b-76ef-4387-8de4-f4b5671006e6",
+    "name": "Envoy Proxy Admin Certificates Listener Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

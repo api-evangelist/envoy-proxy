@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Clusters API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Cluster Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/clusters",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for cluster information."
+              }
+            ]
+          },
+          "docs": "Lists all configured cluster manager clusters including all discovered upstream hosts in each cluster along with per-host statistics. Provides information about the health status and connection metrics of upstream hosts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

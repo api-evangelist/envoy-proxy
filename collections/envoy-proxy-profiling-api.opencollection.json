@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Profiling API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profiling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Enable or Disable CPU Profiler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/cpuprofiler",
+            "params": [
+              {
+                "name": "enable",
+                "value": "",
+                "type": "query",
+                "description": "Enable (y) or disable (n) the CPU profiler."
+              }
+            ]
+          },
+          "docs": "Enables or disables the CPU profiler. Requires compilation with gperftools. The output file can be then analyzed with pprof."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Enable or Disable Heap Profiler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/heapprofiler",
+            "params": [
+              {
+                "name": "enable",
+                "value": "",
+                "type": "query",
+                "description": "Enable (y) or disable (n) the heap profiler."
+              }
+            ]
+          },
+          "docs": "Enables or disables the heap profiler. Requires compilation with gperftools."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

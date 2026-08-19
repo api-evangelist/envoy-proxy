@@ -1,0 +1,206 @@
+{
+  "item": [
+    {
+      "id": "78a27c1b-2ab2-4e8c-8659-f709642b917e",
+      "name": "Listeners",
+      "description": {
+        "content": "Listener management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cab71cef-5ba2-42a6-a73b-4c987d3eec86",
+          "name": "Envoy Proxy List Listeners",
+          "request": {
+            "name": "Envoy Proxy List Listeners",
+            "description": {
+              "content": "Lists all configured listeners, including their names and the addresses they are listening on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listeners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for listener information."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27de8ba7-cd6e-47c8-9553-a804d11f4685",
+              "name": "Successful response with listener information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listeners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56c93bb4-d694-46e8-88fb-baf7262ea2c4",
+          "name": "Envoy Proxy Drain Listeners",
+          "request": {
+            "name": "Envoy Proxy Drain Listeners",
+            "description": {
+              "content": "Drains all listeners, causing them to stop accepting new connections. Existing connections are allowed to complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drain_listeners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "graceful",
+                  "value": "<boolean>",
+                  "description": "When set, listeners are drained gracefully with a period where both old and new listeners accept connections."
+                },
+                {
+                  "disabled": false,
+                  "key": "inboundonly",
+                  "value": "<boolean>",
+                  "description": "Drain only inbound listeners and leave outbound listeners intact."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34873bb2-b7bf-4932-a54a-3180195a1a21",
+              "name": "Listeners draining initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drain_listeners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "graceful",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "inboundonly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "589636fc-aab6-41af-8858-4b63124445dc",
+    "name": "Envoy Proxy Admin Certificates Listeners API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

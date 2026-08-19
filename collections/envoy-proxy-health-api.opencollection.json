@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Health API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Check Server Readiness",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/ready"
+          },
+          "docs": "Returns a 200 OK response if the server has been initialized and is ready to accept traffic. Returns 503 if the server is not yet initialized."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Fail Health Checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/healthcheck/fail"
+          },
+          "docs": "Causes the server to fail inbound health checks. This requires the use of the HTTP health check filter. Useful for draining a server prior to shutting it down or performing a full restart."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Resume Health Checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/healthcheck/ok"
+          },
+          "docs": "Negates the effect of POST /healthcheck/fail, causing the server to resume passing inbound health checks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

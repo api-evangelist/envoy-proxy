@@ -1,0 +1,281 @@
+{
+  "item": [
+    {
+      "id": "326378be-4bd2-4639-a4c3-2e73c72d5569",
+      "name": "Health",
+      "description": {
+        "content": "Health check management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e6d2d38a-09cd-4035-a735-c1a38a85fb59",
+          "name": "Envoy Proxy Check Server Readiness",
+          "request": {
+            "name": "Envoy Proxy Check Server Readiness",
+            "description": {
+              "content": "Returns a 200 OK response if the server has been initialized and is ready to accept traffic. Returns 503 if the server is not yet initialized.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "483dc1e7-0993-4ace-aea1-716c0f813200",
+              "name": "Server is ready and initialized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96e3b2ca-9f7d-4996-a41d-56bef5f1f2d6",
+              "name": "Server is not yet initialized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "820ca8e1-1f1c-40c6-8e85-0c00a73ca69b",
+          "name": "Envoy Proxy Fail Health Checks",
+          "request": {
+            "name": "Envoy Proxy Fail Health Checks",
+            "description": {
+              "content": "Causes the server to fail inbound health checks. This requires the use of the HTTP health check filter. Useful for draining a server prior to shutting it down or performing a full restart.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthcheck",
+                "fail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe07bed7-2440-484a-8b2d-819b0fd5d937",
+              "name": "Health check failure enabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck",
+                    "fail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed27e607-6a6d-4211-ba25-f41daf79369d",
+          "name": "Envoy Proxy Resume Health Checks",
+          "request": {
+            "name": "Envoy Proxy Resume Health Checks",
+            "description": {
+              "content": "Negates the effect of POST /healthcheck/fail, causing the server to resume passing inbound health checks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthcheck",
+                "ok"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d2780ff-49de-4859-ba56-a75b20f174a5",
+              "name": "Health check restored to passing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthcheck",
+                    "ok"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d1883b32-1c4c-43a1-bc49-adccda823587",
+    "name": "Envoy Proxy Admin Certificates Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

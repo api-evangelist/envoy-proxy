@@ -1,0 +1,312 @@
+{
+  "item": [
+    {
+      "id": "9c223b95-ef79-4825-b738-dffe8fbde70e",
+      "name": "Server",
+      "description": {
+        "content": "Server information and lifecycle endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d68ba9ef-13a7-4ecd-8c2c-edfba726a268",
+          "name": "Envoy Proxy Get Server Information",
+          "request": {
+            "name": "Envoy Proxy Get Server Information",
+            "description": {
+              "content": "Returns information about the running Envoy server including version, uptime, command line options, and hot restart version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "server_info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35c2a958-9bd7-4846-afb4-141bdcba2cb1",
+              "name": "Successful response with server information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "server_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"string\",\n  \"state\": \"string\",\n  \"uptime_current_epoch\": \"string\",\n  \"uptime_all_epochs\": \"string\",\n  \"hot_restart_version\": \"string\",\n  \"command_line_options\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24782f0e-13e0-4739-a5de-9be50af70a5a",
+          "name": "Envoy Proxy Get Memory Usage",
+          "request": {
+            "name": "Envoy Proxy Get Memory Usage",
+            "description": {
+              "content": "Returns current memory allocation and heap usage in bytes, providing insights into memory consumption of the Envoy process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "memory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e170c6e-81f0-47b4-bfb0-593e47b6a172",
+              "name": "Successful response with memory information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "memory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allocated\": \"string\",\n  \"heap_size\": \"string\",\n  \"pageheap_unmapped\": \"string\",\n  \"pageheap_free\": \"string\",\n  \"total_thread_cache\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0a66e96-4b8d-4465-9432-e59b6fb3ab4a",
+          "name": "Envoy Proxy Get Hot Restart Version",
+          "request": {
+            "name": "Envoy Proxy Get Hot Restart Version",
+            "description": {
+              "content": "Returns the hot restart compatibility version. This can be matched against the output of the --hot-restart-version command line option to determine whether a new binary and the running binary are hot restart compatible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hot_restart_version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b456da17-09ef-4798-b43c-bd2930eff96c",
+              "name": "Successful response with hot restart version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hot_restart_version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a681fc1-c4b0-4ae3-8a28-c2d6cc17f064",
+          "name": "Envoy Proxy Shutdown Server",
+          "request": {
+            "name": "Envoy Proxy Shutdown Server",
+            "description": {
+              "content": "Cleanly exits the Envoy server process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quitquitquit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d109f61c-19f1-4b09-ad7c-d114b3abc150",
+              "name": "Server shutdown initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quitquitquit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8fd3f479-1941-43e1-a0fa-155b9241e36e",
+    "name": "Envoy Proxy Admin Certificates Server API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

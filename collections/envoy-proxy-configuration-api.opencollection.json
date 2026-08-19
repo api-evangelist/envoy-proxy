@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Configuration API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Dump Current Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/config_dump",
+            "params": [
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Filter the configuration dump to only return the specified resource type."
+              },
+              {
+                "name": "mask",
+                "value": "",
+                "type": "query",
+                "description": "Field mask to apply to the configuration dump, limiting which fields are returned."
+              },
+              {
+                "name": "name_regex",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression to filter the returned configuration by resource name."
+              },
+              {
+                "name": "include_eds",
+                "value": "",
+                "type": "query",
+                "description": "Include EDS configuration in the dump."
+              }
+            ]
+          },
+          "docs": "Returns the currently loaded configuration in JSON format, including bootstrap, clusters, endpoints, listeners, scoped routes, routes, secrets, and ECDS filter configurations."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Dump Initialization Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/init_dump",
+            "params": [
+              {
+                "name": "mask",
+                "value": "",
+                "type": "query",
+                "description": "Field mask to apply to the initialization dump."
+              }
+            ]
+          },
+          "docs": "Returns the unmodified configuration as it was loaded during the initialization process."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

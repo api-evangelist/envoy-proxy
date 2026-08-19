@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Logging API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy View or Modify Log Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/logging",
+            "params": [
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical, and off."
+              },
+              {
+                "name": "paths",
+                "value": "",
+                "type": "query",
+                "description": "Set a glob pattern for file path to filter the log output."
+              }
+            ]
+          },
+          "docs": "Enable or change logging levels at runtime. Without query parameters, returns the current logging levels. With a query parameter, sets the logging level for a specific logger or all loggers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

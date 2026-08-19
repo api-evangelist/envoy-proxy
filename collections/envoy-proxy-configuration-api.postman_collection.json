@@ -1,0 +1,226 @@
+{
+  "item": [
+    {
+      "id": "ea99b8b9-81b6-4596-be93-693faf0d9cf3",
+      "name": "Configuration",
+      "description": {
+        "content": "Configuration inspection and dump endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21d5902b-7512-42f9-b104-b8cf33321b98",
+          "name": "Envoy Proxy Dump Current Configuration",
+          "request": {
+            "name": "Envoy Proxy Dump Current Configuration",
+            "description": {
+              "content": "Returns the currently loaded configuration in JSON format, including bootstrap, clusters, endpoints, listeners, scoped routes, routes, secrets, and ECDS filter configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config_dump"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource",
+                  "value": "<string>",
+                  "description": "Filter the configuration dump to only return the specified resource type."
+                },
+                {
+                  "disabled": false,
+                  "key": "mask",
+                  "value": "<string>",
+                  "description": "Field mask to apply to the configuration dump, limiting which fields are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "name_regex",
+                  "value": "<string>",
+                  "description": "Regular expression to filter the returned configuration by resource name."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_eds",
+                  "value": "<boolean>",
+                  "description": "Include EDS configuration in the dump."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09ea04d8-2245-4928-9056-5abf07b8fe2c",
+              "name": "Successful response with configuration dump.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config_dump"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mask",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name_regex",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_eds",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19890f3a-b6ac-4088-b115-8c1a295b4a54",
+          "name": "Envoy Proxy Dump Initialization Configuration",
+          "request": {
+            "name": "Envoy Proxy Dump Initialization Configuration",
+            "description": {
+              "content": "Returns the unmodified configuration as it was loaded during the initialization process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "init_dump"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "mask",
+                  "value": "<string>",
+                  "description": "Field mask to apply to the initialization dump."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f0e1890-cc61-4687-b11f-e4304c4575ce",
+              "name": "Successful response with initialization configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "init_dump"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b5453f08-a5b2-488f-84f2-3a94e1d5c604",
+    "name": "Envoy Proxy Admin Certificates Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

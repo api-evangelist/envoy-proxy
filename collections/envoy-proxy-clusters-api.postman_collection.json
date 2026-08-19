@@ -1,0 +1,114 @@
+{
+  "item": [
+    {
+      "id": "01847f8c-234f-442e-87a2-7892ad5e69cf",
+      "name": "Clusters",
+      "description": {
+        "content": "Cluster management and information endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "47101e14-a00b-4548-b849-7b137fc94217",
+          "name": "Envoy Proxy Get Cluster Information",
+          "request": {
+            "name": "Envoy Proxy Get Cluster Information",
+            "description": {
+              "content": "Lists all configured cluster manager clusters including all discovered upstream hosts in each cluster along with per-host statistics. Provides information about the health status and connection metrics of upstream hosts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for cluster information."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0cba5b87-70f3-43cd-8135-e3e9334df6b5",
+              "name": "Successful response with cluster information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a205534b-5057-489c-a4cc-f1490bbd3a5f",
+    "name": "Envoy Proxy Admin Certificates Clusters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

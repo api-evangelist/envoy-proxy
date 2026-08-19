@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "4ec67d40-11ce-4ab2-ae3f-95ead8ce72bf",
+      "name": "Certificates",
+      "description": {
+        "content": "TLS certificate information endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c73bf0a-dd3c-4b8d-a763-ad1b2ab79a0d",
+          "name": "Envoy Proxy List TLS Certificates",
+          "request": {
+            "name": "Envoy Proxy List TLS Certificates",
+            "description": {
+              "content": "Lists all loaded TLS certificates including file name, serial number, subject alternate names, and days until expiration in JSON format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33d23b4a-ce18-4970-ae93-93be5c5b27fd",
+              "name": "Successful response with certificate information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "826e0fb3-7ae2-48ae-a8e8-4ae5787f0b8c",
+    "name": "Envoy Proxy Admin Certificates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

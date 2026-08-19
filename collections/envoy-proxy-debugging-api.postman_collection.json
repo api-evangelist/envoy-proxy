@@ -1,0 +1,193 @@
+{
+  "item": [
+    {
+      "id": "a41c9142-e805-4371-a5b4-9c447300af5f",
+      "name": "Debugging",
+      "description": {
+        "content": "Debugging and traffic inspection endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dc85566f-323b-48b0-a7b3-d949c40565c6",
+          "name": "Envoy Proxy Tap Traffic",
+          "request": {
+            "name": "Envoy Proxy Tap Traffic",
+            "description": {
+              "content": "Installs a traffic tap configuration that allows inspecting traffic matching specific filter rules. The tap configuration is supplied in the request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tap"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad2a5102-d265-452b-932c-a3104b131eb9",
+              "name": "Tap configuration installed and streaming tap results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abc6fba5-5614-4fbb-9e59-ab72d990bf64",
+          "name": "Envoy Proxy Get Mutex Contention Stats",
+          "request": {
+            "name": "Envoy Proxy Get Mutex Contention Stats",
+            "description": {
+              "content": "Dumps current Envoy mutex contention stats in JSON format, if mutex tracing is enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contention"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25fbbcec-a503-4345-9d91-5315f3de7e4a",
+              "name": "Successful response with contention statistics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contention"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a63ab9ac-8cf0-49ae-a9d9-95ee9ce8d73a",
+    "name": "Envoy Proxy Admin Certificates Debugging API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

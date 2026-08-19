@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Listeners API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listeners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy List Listeners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/listeners",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for listener information."
+              }
+            ]
+          },
+          "docs": "Lists all configured listeners, including their names and the addresses they are listening on."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Drain Listeners",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/drain_listeners",
+            "params": [
+              {
+                "name": "graceful",
+                "value": "",
+                "type": "query",
+                "description": "When set, listeners are drained gracefully with a period where both old and new listeners accept connections."
+              },
+              {
+                "name": "inboundonly",
+                "value": "",
+                "type": "query",
+                "description": "Drain only inbound listeners and leave outbound listeners intact."
+              }
+            ]
+          },
+          "docs": "Drains all listeners, causing them to stop accepting new connections. Existing connections are allowed to complete."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

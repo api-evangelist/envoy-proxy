@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Statistics API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/stats",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for the statistics."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression to filter the returned statistics by name."
+              },
+              {
+                "name": "usedonly",
+                "value": "",
+                "type": "query",
+                "description": "Only return statistics that have been written to by Envoy."
+              },
+              {
+                "name": "histogram_buckets",
+                "value": "",
+                "type": "query",
+                "description": "Control histogram output mode."
+              }
+            ]
+          },
+          "docs": "Returns statistics that Envoy has collected, including counters, gauges, and histograms. Stats are provided as key-value pairs using a hierarchical dotted notation."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Statistics in Prometheus Format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/stats/prometheus",
+            "params": [
+              {
+                "name": "usedonly",
+                "value": "",
+                "type": "query",
+                "description": "Only return statistics that have been written to by Envoy."
+              },
+              {
+                "name": "text_readouts",
+                "value": "",
+                "type": "query",
+                "description": "Include text readout gauges in the output."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Regular expression to filter the returned statistics by name."
+              }
+            ]
+          },
+          "docs": "Returns statistics in Prometheus exposition format suitable for scraping by a Prometheus server."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Recent Stat Lookups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/stats/recentlookups"
+          },
+          "docs": "Returns a table of recently looked-up stat names."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Reset Counters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/reset_counters"
+          },
+          "docs": "Resets all counters to zero. This is useful when used in conjunction with GET /stats during debugging sessions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

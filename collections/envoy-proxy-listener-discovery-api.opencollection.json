@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Listener Discovery API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listener Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Listener Discovery Service (LDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/v3/discovery:listeners",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches listener configuration from the management server. The Listener Discovery Service (LDS) returns a set of listeners that Envoy should configure to accept downstream connections. Each listener defines the address and port to bind to, filter chains for processing connections, and associated TLS context for secure connections."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

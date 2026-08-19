@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "084d6e2b-f82f-4ecf-9f8c-db1438652145",
+      "name": "Runtime Discovery",
+      "description": {
+        "content": "Runtime Discovery Service (RTDS) endpoints for dynamically discovering runtime configuration layers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "647c0d7a-85f2-426e-bc03-d658c2fd20a5",
+          "name": "Envoy Proxy Runtime Discovery Service (RTDS)",
+          "request": {
+            "name": "Envoy Proxy Runtime Discovery Service (RTDS)",
+            "description": {
+              "content": "Fetches runtime configuration layers from the management server. The Runtime Discovery Service (RTDS) allows dynamic updates to runtime feature flags and settings without requiring Envoy restarts or redeployments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:runtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": 5384,\n      \"key_1\": 1407,\n      \"key_2\": 3259\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9dfd1f01-d1f9-4106-a456-a4e321ff4e74",
+              "name": "Successful runtime discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:runtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": 1673\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 1365\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": false\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9946d89b-b567-49d9-93f1-da3694917eed",
+    "name": "Envoy Proxy Admin Certificates Runtime Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

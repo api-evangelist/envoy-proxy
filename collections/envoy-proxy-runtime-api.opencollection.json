@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Runtime API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Runtime Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/runtime"
+          },
+          "docs": "Returns the current runtime settings, including any overrides that have been applied via the admin interface or runtime layer configuration."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Modify Runtime Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/runtime_modify",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pairs to set as runtime overrides. Multiple parameters can be passed."
+              }
+            ]
+          },
+          "docs": "Adds or modifies runtime values as passed in query parameters. To delete a previously added override, use an empty value for the parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

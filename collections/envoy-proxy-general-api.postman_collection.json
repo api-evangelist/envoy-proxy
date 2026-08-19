@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "a986b65d-6c7c-4d80-abcd-b64b45fd3d6a",
+      "name": "General",
+      "description": {
+        "content": "General admin interface endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5e8ae91-d303-40a8-af09-fd9657d9bbc0",
+          "name": "Envoy Proxy Admin Home",
+          "request": {
+            "name": "Envoy Proxy Admin Home",
+            "description": {
+              "content": "Returns the admin interface home page with links to all available endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7369027-5984-4264-902e-8cbba463c814",
+              "name": "Successful response with admin home page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/html"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/html"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88ffc3b8-9b32-4b51-a88e-57081a9c5509",
+          "name": "Envoy Proxy List Available Endpoints",
+          "request": {
+            "name": "Envoy Proxy List Available Endpoints",
+            "description": {
+              "content": "Returns a list of all available admin endpoints and their descriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "help"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a71d82d-011e-4c4e-b94a-1dba76cc6864",
+              "name": "Successful response with list of endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "help"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "544ece2d-23da-4655-822c-14ece5979565",
+    "name": "Envoy Proxy Admin Certificates General API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

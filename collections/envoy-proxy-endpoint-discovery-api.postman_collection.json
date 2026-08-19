@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "cbc35c28-6876-4ca2-a724-ed41b54273b1",
+      "name": "Endpoint Discovery",
+      "description": {
+        "content": "Endpoint Discovery Service (EDS) endpoints for dynamically discovering cluster endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0fd1aa19-ddee-48c8-9fb3-243862f5958e",
+          "name": "Envoy Proxy Endpoint Discovery Service (EDS)",
+          "request": {
+            "name": "Envoy Proxy Endpoint Discovery Service (EDS)",
+            "description": {
+              "content": "Fetches endpoint configuration from the management server. The Endpoint Discovery Service (EDS) returns a set of endpoint assignments for each cluster, specifying the network addresses of upstream hosts along with load balancing weights, health status, and locality information used for zone-aware routing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": false\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0a9f542e-253f-4e2c-a944-9bf5cf2b4de8",
+              "name": "Successful endpoint discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 4729.747221831153\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 1907\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f30a90c2-32f7-4154-9490-04aa4bf28a85",
+    "name": "Envoy Proxy Admin Certificates Endpoint Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

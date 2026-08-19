@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates General API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Admin Home",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/"
+          },
+          "docs": "Returns the admin interface home page with links to all available endpoints."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy List Available Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/help"
+          },
+          "docs": "Returns a list of all available admin endpoints and their descriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

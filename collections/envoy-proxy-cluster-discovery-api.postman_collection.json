@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "5bf626e8-8f67-4975-ae9d-f12e4cd1eee4",
+      "name": "Cluster Discovery",
+      "description": {
+        "content": "Cluster Discovery Service (CDS) endpoints for dynamically discovering upstream clusters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f97356cd-cb2c-45ca-812d-9028ce8e3a1d",
+          "name": "Envoy Proxy Cluster Discovery Service (CDS)",
+          "request": {
+            "name": "Envoy Proxy Cluster Discovery Service (CDS)",
+            "description": {
+              "content": "Fetches cluster configuration from the management server. The Cluster Discovery Service (CDS) returns a set of dynamically discovered upstream clusters that Envoy should route traffic to. Each cluster defines how Envoy connects to a group of upstream hosts including load balancing policy, connection limits, circuit breaking thresholds, and health checking configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "discovery:clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"<string>\",\n    \"cluster\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"locality\": {\n      \"region\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"sub_zone\": \"<string>\"\n    },\n    \"user_agent_name\": \"<string>\",\n    \"user_agent_version\": \"<string>\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1393246b-6e31-4697-aa00-b59822ffc265",
+              "name": "Successful cluster discovery response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "discovery:clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_info\": \"<string>\",\n  \"node\": {\n    \"id\": \"string\",\n    \"cluster\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6458\n    },\n    \"locality\": {\n      \"region\": \"string\",\n      \"zone\": \"string\",\n      \"sub_zone\": \"string\"\n    },\n    \"user_agent_name\": \"string\",\n    \"user_agent_version\": \"string\"\n  },\n  \"resource_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type_url\": \"<string>\",\n  \"response_nonce\": \"<string>\",\n  \"error_detail\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version_info\": \"string\",\n  \"resources\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 4132.374780634489,\n      \"key_3\": 4703.703699421307\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 9807.671919897846,\n      \"key_2\": false,\n      \"key_3\": \"string\",\n      \"key_4\": 161.16921394439433\n    }\n  ],\n  \"type_url\": \"string\",\n  \"nonce\": \"string\",\n  \"control_plane\": {\n    \"identifier\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7f68418f-dcfc-412a-b846-37881700be50",
+    "name": "Envoy Proxy Admin Certificates Cluster Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

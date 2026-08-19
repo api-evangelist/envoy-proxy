@@ -1,0 +1,124 @@
+{
+  "item": [
+    {
+      "id": "fbca15cc-69f9-452f-8e25-c062e8f52814",
+      "name": "Logging",
+      "description": {
+        "content": "Logging level management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e0d8135-bf10-416a-87c2-87b27cda50c4",
+          "name": "Envoy Proxy View or Modify Log Levels",
+          "request": {
+            "name": "Envoy Proxy View or Modify Log Levels",
+            "description": {
+              "content": "Enable or change logging levels at runtime. Without query parameters, returns the current logging levels. With a query parameter, sets the logging level for a specific logger or all loggers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logging"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "level",
+                  "value": "<string>",
+                  "description": "Set the log level for all loggers. Valid values include trace, debug, info, warning/warn, error, critical, and off."
+                },
+                {
+                  "disabled": false,
+                  "key": "paths",
+                  "value": "<string>",
+                  "description": "Set a glob pattern for file path to filter the log output."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25a1676f-4ac5-4c37-9a50-b0acf273f839",
+              "name": "Successful response with logging configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logging"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "level",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paths",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b15d60a0-484c-4752-8bbf-d9672a70aeb9",
+    "name": "Envoy Proxy Admin Certificates Logging API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

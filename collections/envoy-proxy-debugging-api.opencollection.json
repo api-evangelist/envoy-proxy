@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Debugging API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Debugging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Tap Traffic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/tap",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Installs a traffic tap configuration that allows inspecting traffic matching specific filter rules. The tap configuration is supplied in the request body."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Mutex Contention Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/contention"
+          },
+          "docs": "Dumps current Envoy mutex contention stats in JSON format, if mutex tracing is enabled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

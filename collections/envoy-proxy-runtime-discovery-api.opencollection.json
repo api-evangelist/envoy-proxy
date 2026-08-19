@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Runtime Discovery API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runtime Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Runtime Discovery Service (RTDS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/v3/discovery:runtime",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches runtime configuration layers from the management server. The Runtime Discovery Service (RTDS) allows dynamic updates to runtime feature flags and settings without requiring Envoy restarts or redeployments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "282b4b28-8da3-4669-bc9e-e1038afe5cf7",
+      "name": "Runtime",
+      "description": {
+        "content": "Runtime configuration management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "15d71b60-2f10-4087-9fd5-61f621586b20",
+          "name": "Envoy Proxy Get Runtime Settings",
+          "request": {
+            "name": "Envoy Proxy Get Runtime Settings",
+            "description": {
+              "content": "Returns the current runtime settings, including any overrides that have been applied via the admin interface or runtime layer configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81286b8c-e1bb-4210-88f2-2ee17a7c5c4d",
+              "name": "Successful response with runtime settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entries\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fdc3f1b-995c-4066-8fda-97a66f6080da",
+          "name": "Envoy Proxy Modify Runtime Settings",
+          "request": {
+            "name": "Envoy Proxy Modify Runtime Settings",
+            "description": {
+              "content": "Adds or modifies runtime values as passed in query parameters. To delete a previously added override, use an empty value for the parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runtime_modify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "Key-value pairs to set as runtime overrides. Multiple parameters can be passed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdd11d79-36cc-4f51-8cc5-21946ad3419f",
+              "name": "Runtime values modified successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runtime_modify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9901",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "33d29252-c524-4189-a16f-7ec6ad27c1a0",
+    "name": "Envoy Proxy Admin Certificates Runtime API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.\n\nContact Support:\n Name: Envoy Proxy",
+      "type": "text/plain"
+    }
+  }
+}

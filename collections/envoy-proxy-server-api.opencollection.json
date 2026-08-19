@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Envoy Proxy Admin Certificates Server API",
+    "version": "1.38.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Envoy Proxy Get Server Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/server_info"
+          },
+          "docs": "Returns information about the running Envoy server including version, uptime, command line options, and hot restart version."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Memory Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/memory"
+          },
+          "docs": "Returns current memory allocation and heap usage in bytes, providing insights into memory consumption of the Envoy process."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Get Hot Restart Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9901/hot_restart_version"
+          },
+          "docs": "Returns the hot restart compatibility version. This can be matched against the output of the --hot-restart-version command line option to determine whether a new binary and the running binary are hot restart compatible."
+        },
+        {
+          "info": {
+            "name": "Envoy Proxy Shutdown Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9901/quitquitquit"
+          },
+          "docs": "Cleanly exits the Envoy server process."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
