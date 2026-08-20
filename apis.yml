@@ -196,6 +196,8 @@ apis:
   description: Cluster management and information endpoints.
   humanURL: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
   tags:
+  - Cluster
+  tags_raw:
   - Clusters
   properties:
   - type: OpenAPI
@@ -272,7 +274,8 @@ apis:
   name: Envoy Proxy General API
   description: General admin interface endpoints.
   humanURL: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
-  tags:
+  tags: []
+  tags_raw:
   - General
   properties:
   - type: OpenAPI
