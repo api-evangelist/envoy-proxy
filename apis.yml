@@ -602,7 +602,7 @@ common:
     type: Reference
 created: '2026-01-02'
 modified: '2026-05-19'
-position: Consumer
+position: Consuming
 description: >-
   Envoy Proxy is an open-source edge and service proxy that is designed for cloud-native applications. It acts as a
   gateway for all incoming and outgoing traffic within a microservices architecture, providing functionalities such as
