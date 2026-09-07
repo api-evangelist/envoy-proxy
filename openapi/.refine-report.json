@@ -43,6 +43,26 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "envoy-proxy-certificates-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-cluster-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-clusters-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-configuration-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-debugging-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-endpoint-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-general-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-health-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-listener-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-listeners-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-logging-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-profiling-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-route-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-runtime-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-runtime-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-secret-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-server-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "envoy-proxy-statistics-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

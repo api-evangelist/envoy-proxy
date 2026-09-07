@@ -613,3 +613,5 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 specificationVersion: '0.23'
+x-parent: envoy
+x-relationship: product
