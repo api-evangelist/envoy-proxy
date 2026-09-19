@@ -469,6 +469,8 @@ apis:
   description: Server information and lifecycle endpoints.
   humanURL: https://www.envoyproxy.io/docs/envoy/latest/operations/admin
   tags:
+  - Servers
+  tags_raw:
   - Server
   properties:
   - type: OpenAPI
