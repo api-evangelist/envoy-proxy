@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Envoy Proxy Admin Certificates Endpoint Discovery API
-  description: The Envoy Proxy Administration Interface provides a local HTTP-based management API for querying and modifying various aspects of the Envoy server at runtime. It serves as a critical operational tool for monitoring, debugging, and managing Envoy proxy instances. The admin interface typically runs on port 9901 by default. All mutation operations must be sent as HTTP POST requests; GET requests will not perform changes. Note that this endpoint is not authenticated, so access should be restricted in production environments.
-  version: 1.38.0
+  title: Envoy Proxy xDS Discovery Endpoint Discovery API
+  description: The Envoy xDS (x Discovery Service) REST API provides a set of endpoints for dynamically discovering and configuring Envoy proxy resources.
+  version: 3.0.0
   contact:
     name: Envoy Proxy
     url: https://www.envoyproxy.io/
@@ -10,8 +10,8 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: http://localhost:9901
-  description: Default Envoy Admin Interface
+- url: http://localhost:18000
+  description: Default xDS Management Server
 tags:
 - name: Endpoint Discovery
   description: Endpoint Discovery Service (EDS) endpoints for dynamically discovering cluster endpoints.
@@ -38,39 +38,6 @@ paths:
       - Endpoint Discovery
 components:
   schemas:
-    Node:
-      type: object
-      description: Identifies the Envoy instance making a discovery request. Contains metadata about the proxy node including its identity, cluster membership, locality, and build version.
-      properties:
-        id:
-          type: string
-          description: An opaque node identifier for the Envoy instance. This must be set when using any of the xDS APIs.
-        cluster:
-          type: string
-          description: The cluster that the Envoy instance belongs to. Defines the redundancy domain for the proxy.
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Opaque metadata extending the node identifier. Used by the management server for filtering and configuration targeting.
-        locality:
-          type: object
-          description: The locality the Envoy instance is running in.
-          properties:
-            region:
-              type: string
-              description: Region this proxy belongs to.
-            zone:
-              type: string
-              description: Zone within the region.
-            sub_zone:
-              type: string
-              description: Sub-zone within the zone.
-        user_agent_name:
-          type: string
-          description: Free-form string that identifies the entity requesting config, e.g. envoy or grpc.
-        user_agent_version:
-          type: string
-          description: Free-form string that identifies the version of the requesting entity.
     DiscoveryResponse:
       type: object
       description: A response from the management server containing xDS resources. The resources are encoded as protobuf Any messages and identified by their type URL.
@@ -131,3 +98,36 @@ components:
             message:
               type: string
               description: Error message describing the rejection reason.
+    Node:
+      type: object
+      description: Identifies the Envoy instance making a discovery request. Contains metadata about the proxy node including its identity, cluster membership, locality, and build version.
+      properties:
+        id:
+          type: string
+          description: An opaque node identifier for the Envoy instance. This must be set when using any of the xDS APIs.
+        cluster:
+          type: string
+          description: The cluster that the Envoy instance belongs to. Defines the redundancy domain for the proxy.
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Opaque metadata extending the node identifier. Used by the management server for filtering and configuration targeting.
+        locality:
+          type: object
+          description: The locality the Envoy instance is running in.
+          properties:
+            region:
+              type: string
+              description: Region this proxy belongs to.
+            zone:
+              type: string
+              description: Zone within the region.
+            sub_zone:
+              type: string
+              description: Sub-zone within the zone.
+        user_agent_name:
+          type: string
+          description: Free-form string that identifies the entity requesting config, e.g. envoy or grpc.
+        user_agent_version:
+          type: string
+          description: Free-form string that identifies the version of the requesting entity.
