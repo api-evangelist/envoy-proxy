@@ -537,6 +537,12 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/envoy-proxy.png
 access: 3rd-Party
 common:
+  - type: Plans
+    url: plans/envoy-proxy-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/envoy-proxy-rate-limits.yml
+  - type: FinOps
+    url: finops/envoy-proxy-finops.yml
   - type: CodeOfConduct
     url: https://github.com/envoyproxy/envoy/blob/main/CODE_OF_CONDUCT.md
   - type: ContributionGuide
